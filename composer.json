@@ -1,0 +1,22 @@
+{
+    "name": "josh-cunningham/php-auth0-test",
+    "description": "Testing the Auth0 PHP SDK",
+    "type": "project",
+    "require": {
+        "php": "^5.5 || ^7.0",
+        "vlucas/phpdotenv": "^2.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Auth0\\SDK\\Scaffold\\": "classes",
+            "Auth0\\SDK\\": "auth0/src"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Josh Cunningham",
+            "email": "josh@joshcanhelp.com"
+        }
+    ]
+}
