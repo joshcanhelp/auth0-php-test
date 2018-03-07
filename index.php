@@ -1,6 +1,9 @@
 <?php
 require 'bootstrap.php';
 
+use Auth0\SDK\Scaffold\ApiTestClientGet;
+use Auth0\SDK\Scaffold\ApiTestUserSearch;
+
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -33,14 +36,14 @@ require 'bootstrap.php';
      * Clients
      */
     
-    $client_get_all = new Auth0\SDK\Scaffold\ApiTestClientGet( [], 'Clients - Get All' );
+    $client_get_all = new ApiTestClientGet( [], 'Clients - Get All' );
     $client_get_all->render();
     
     /*
      * Users
      */
     
-    $user_search = new Auth0\SDK\Scaffold\ApiTestUserSearch( [
+    $user_search = new ApiTestUserSearch( [
         'q' => 'email:"josh.cunningham@auth0.com"'
     ], 'Users - Search' );
     $user_search->render();

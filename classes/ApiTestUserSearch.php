@@ -1,10 +1,11 @@
 <?php
 namespace Auth0\SDK\Scaffold;
 
-class ApiTestUserSearch extends ApiTestAbstract
+final class ApiTestUserSearch extends ApiTestAbstract
 {
 
-  public function call() {
+  public function call()
+  {
     $this->data = $this->api->users->search( [
       'q' => $this->params[ 'q' ]
     ] );

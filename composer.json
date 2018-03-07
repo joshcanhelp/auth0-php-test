@@ -18,5 +18,8 @@
             "name": "Josh Cunningham",
             "email": "josh@joshcanhelp.com"
         }
-    ]
+    ],
+    "scripts": {
+        "php-compat" : "phpcs ./auth0 --standard=PHPCompatibility --runtime-set testVersion 5.5 --extensions=php --ignore=examples/*,tests/*,vendor/bin/*,vendor/composer/*,vendor/doctrine/*,vendor/josegonzalez/*,vendor/m1/*,vendor/myclabs/*,vendor/phpdocumentor/*,vendor/phpspec/*,vendor/phpunit/*,vendor/sebastian/*,vendor/symfony/*,vendor/webmozart/*"
+    }
 }

@@ -3,7 +3,7 @@ namespace Auth0\SDK\Scaffold;
 
 use Auth0\SDK\API\Management;
 
-abstract class ApiTestAbstract implements ApiTestInterface
+abstract class ApiTestAbstract
 {
   protected $domain = '';
   protected $token = '';
@@ -11,20 +11,6 @@ abstract class ApiTestAbstract implements ApiTestInterface
   protected $title = '';
   protected $params = [];
   protected $data = [];
-
-  /**
-   * Call the management API
-   */
-  abstract protected function call();
-
-  /**
-   * Output an item from a returned array of items
-   *
-   * @param $datum
-   *
-   * @return string
-   */
-  abstract protected function renderDataItem( $datum );
   
   /**
    * ApiTestAbstract constructor.
@@ -39,13 +25,26 @@ abstract class ApiTestAbstract implements ApiTestInterface
     $this->params = $params;
     $this->title = $title;
     $this->api = new Management( $this->token, $this->domain );
-    $this->call();
   }
+  
+  /**
+   * Call the management API
+   */
+  abstract protected function call();
+  
+  /**
+   * Output an item from a returned array of items
+   *
+   * @param $datum
+   *
+   * @return string
+   */
+  abstract protected function renderDataItem( $datum );
 
   /**
    * Output the section header
    */
-  public function renderTitle()
+  protected function renderTitle()
   {
     printf( '<h2>%s</h2>', ! empty( $this->title ) ? $this->title : __METHOD__ );
   }
@@ -53,7 +52,7 @@ abstract class ApiTestAbstract implements ApiTestInterface
   /**
    * Output the data header
    */
-  public function renderDataHeader()
+  protected function renderDataHeader()
   {
     printf(
       '<h3>Found %s</h3>',
@@ -64,7 +63,7 @@ abstract class ApiTestAbstract implements ApiTestInterface
   /**
    * Output the data
    */
-  public function renderData()
+  protected function renderData()
   {
     if ( ! empty( $this->data ) ) {
       echo '<ul>';
@@ -80,6 +79,7 @@ abstract class ApiTestAbstract implements ApiTestInterface
    */
   public function render()
   {
+    $this->call();
     $this->renderTitle();
     $this->renderDataHeader();
     $this->renderData();
