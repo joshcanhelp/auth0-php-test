@@ -1,7 +1,7 @@
 <?php
 namespace Auth0\SDK\Scaffold;
 
-final class ApiTestClientGet extends ApiTestAbstract
+final class ApiTestClientsGetAll extends ApiTestAbstract
 {
     
     public function call() {

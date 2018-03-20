@@ -1,7 +1,8 @@
 <?php
 require 'bootstrap.php';
 
-use Auth0\SDK\Scaffold\ApiTestClientGet;
+use Auth0\SDK\Scaffold\ApiTestClientsGetAll;
+use Auth0\SDK\Scaffold\ApiTestResourceServersGetAll;
 use Auth0\SDK\Scaffold\ApiTestUserSearch;
 
 ?><!DOCTYPE html>
@@ -36,8 +37,15 @@ use Auth0\SDK\Scaffold\ApiTestUserSearch;
      * Clients
      */
     
-    $client_get_all = new ApiTestClientGet( [], 'Clients - Get All' );
-    $client_get_all->render();
+    $client_get_all = new ApiTestClientsGetAll( [], 'Clients - Get All' );
+//    $client_get_all->render();
+    
+    /*
+     * Resource Servers
+     */
+    
+    $res_servers_get_all = new ApiTestResourceServersGetAll( [], 'Resource Servers - Get All' );
+    $res_servers_get_all->render();
     
     /*
      * Users
@@ -46,7 +54,7 @@ use Auth0\SDK\Scaffold\ApiTestUserSearch;
     $user_search = new ApiTestUserSearch( [
         'q' => 'email:"josh.cunningham@auth0.com"'
     ], 'Users - Search' );
-    $user_search->render();
+//    $user_search->render();
     ?>
     
 </article>
