@@ -38,7 +38,7 @@ use Auth0\SDK\Scaffold\ApiTestUserSearch;
      */
     
     $client_get_all = new ApiTestClientsGetAll( [], 'Clients - Get All' );
-//    $client_get_all->render();
+    $client_get_all->render();
     
     /*
      * Resource Servers
@@ -54,7 +54,7 @@ use Auth0\SDK\Scaffold\ApiTestUserSearch;
     $user_search = new ApiTestUserSearch( [
         'q' => 'email:"josh.cunningham@auth0.com"'
     ], 'Users - Search' );
-//    $user_search->render();
+    $user_search->render();
     ?>
     
 </article>

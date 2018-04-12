@@ -24,7 +24,7 @@ $auth0 = new Auth0( [
     'client_id' => $a0_client_id,
     'client_secret' => $a0_client_secret,
     'redirect_uri' => $a0_redirect_uri,
-    'audience' => $a0_audience,
+    'audience' => '',
     'scope' => 'openid profile offline_access',
     'persist_id_token' => true,
     'persist_access_token' => true,
@@ -32,12 +32,14 @@ $auth0 = new Auth0( [
 ] );
 
 // Dynamic page actions
-$action = ! empty( $_GET[ 'action' ] ) ? $_GET[ 'action' ] : '';
-switch ( $action ) {
-    case 'login':
-        $auth0->login();
-        break;
-    case 'logout':
-        $auth0->logout();
-        break;
+if ( isset( $_GET[ 'action' ] ) ) {
+
+    switch ( $_GET[ 'action' ] ) {
+        case 'login':
+            $auth0->login();
+            break;
+        case 'logout':
+            $auth0->logout();
+            break;
+    }
 }
