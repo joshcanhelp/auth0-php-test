@@ -1,9 +1,14 @@
 <?php
+/**
+ * index.php
+ */
 require 'bootstrap.php';
 
 use Auth0\SDK\Scaffold\ApiTestClientsGetAll;
+use Auth0\SDK\Scaffold\ApiTestConnectionsGetAll;
 use Auth0\SDK\Scaffold\ApiTestResourceServersGetAll;
 use Auth0\SDK\Scaffold\ApiTestUserSearch;
+use Auth0\SDK\Scaffold\ApiTestUserGet;
 
 ?><!DOCTYPE html>
 <html>
@@ -17,6 +22,7 @@ use Auth0\SDK\Scaffold\ApiTestUserSearch;
 <body>
 <article>
     <h1>Auth0 Test Suite</h1>
+    <p>Current PHP version <?php echo phpversion() ?></p>
     <?php if ( $user = $auth0->getUser() ) : ?>
         <h2>Logged In</h2>
         <ul>
@@ -38,14 +44,21 @@ use Auth0\SDK\Scaffold\ApiTestUserSearch;
      */
     
     $client_get_all = new ApiTestClientsGetAll( [], 'Clients - Get All' );
-    $client_get_all->render();
-    
+//    $client_get_all->render();
+
+    /*
+     * Connections
+     */
+
+    $connections_get_all = new ApiTestConnectionsGetAll( [], 'Connections - Get All' );
+//    $connections_get_all->render();
+
     /*
      * Resource Servers
      */
     
     $res_servers_get_all = new ApiTestResourceServersGetAll( [], 'Resource Servers - Get All' );
-    $res_servers_get_all->render();
+//    $res_servers_get_all->render();
     
     /*
      * Users
@@ -54,7 +67,10 @@ use Auth0\SDK\Scaffold\ApiTestUserSearch;
     $user_search = new ApiTestUserSearch( [
         'q' => 'email:"josh.cunningham@auth0.com"'
     ], 'Users - Search' );
-    $user_search->render();
+//    $user_search->render();
+
+    $get_user = new ApiTestUserGet( [ 'id' => 'auth0|5a78b127ed65e34236bd2c2b' ], 'Users - Get One' );
+    $get_user->render();
     ?>
     
 </article>
