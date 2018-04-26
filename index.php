@@ -9,6 +9,7 @@ use Auth0\SDK\Scaffold\ApiTestConnectionsGetAll;
 use Auth0\SDK\Scaffold\ApiTestResourceServersGetAll;
 use Auth0\SDK\Scaffold\ApiTestUserSearch;
 use Auth0\SDK\Scaffold\ApiTestUserGet;
+use Auth0\SDK\Scaffold\ApiTestEmailTemplateGet;
 
 ?><!DOCTYPE html>
 <html>
@@ -37,42 +38,54 @@ use Auth0\SDK\Scaffold\ApiTestUserGet;
         <h2>Not Logged In</h2>
         <p><a href="?action=login" class="btn btn-primary btn-sm">Login</a></p>
     <?php endif; ?>
-    
+
     <?php
     /*
      * Clients
      */
-    
+
     $client_get_all = new ApiTestClientsGetAll( [], 'Clients - Get All' );
-//    $client_get_all->render();
+    // $client_get_all->render();
 
     /*
      * Connections
      */
 
     $connections_get_all = new ApiTestConnectionsGetAll( [], 'Connections - Get All' );
-//    $connections_get_all->render();
+    // $connections_get_all->render();
 
     /*
      * Resource Servers
      */
-    
+
     $res_servers_get_all = new ApiTestResourceServersGetAll( [], 'Resource Servers - Get All' );
-//    $res_servers_get_all->render();
-    
+    // $res_servers_get_all->render();
+
     /*
      * Users
      */
-    
+
     $user_search = new ApiTestUserSearch( [
         'q' => 'email:"josh.cunningham@auth0.com"'
     ], 'Users - Search' );
-//    $user_search->render();
+    // $user_search->render();
 
     $get_user = new ApiTestUserGet( [ 'id' => 'auth0|5a78b127ed65e34236bd2c2b' ], 'Users - Get One' );
-    $get_user->render();
+    // $get_user->render();
+
+    /*
+     * Email Templates
+     */
+
+    $user_search = new ApiTestEmailTemplateGet( [
+        'q' => 'email:"josh.cunningham@auth0.com"'
+    ], 'Users - Search' );
+    // $user_search->render();
+
+    $get_email_tpl = new ApiTestEmailTemplateGet( [ 'templateName' => 'verify_email' ], 'Email Template - Get One' );
+    // $get_email_tpl->render();
     ?>
-    
+
 </article>
 </body>
 </html>
