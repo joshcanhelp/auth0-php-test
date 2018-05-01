@@ -24,12 +24,12 @@ use Auth0\SDK\Scaffold\ApiTestEmailTemplateGet;
 <article>
     <h1>Auth0 Test Suite</h1>
     <p>Current PHP version <?php echo phpversion() ?></p>
-    <?php if ( $user = $auth0->getUser() ) : ?>
+    <?php if ($user = $auth0->getUser()) : ?>
         <h2>Logged In</h2>
         <ul>
             <?php
-            foreach ( $user as $key => $attr ) {
-                printf( '<li><strong>%s:</strong> %s</li>', $key, $attr );
+            foreach ($user as $key => $attr) {
+                printf('<li><strong>%s:</strong> %s</li>', $key, $attr);
             }
             ?>
         </ul>
@@ -44,46 +44,46 @@ use Auth0\SDK\Scaffold\ApiTestEmailTemplateGet;
      * Clients
      */
 
-    $client_get_all = new ApiTestClientsGetAll( [], 'Clients - Get All' );
-    // $client_get_all->render();
+    $client_get_all = new ApiTestClientsGetAll([], 'Clients - Get All');
+    $client_get_all->render();
 
     /*
      * Connections
      */
 
-    $connections_get_all = new ApiTestConnectionsGetAll( [], 'Connections - Get All' );
-    // $connections_get_all->render();
+    $connections_get_all = new ApiTestConnectionsGetAll([], 'Connections - Get All');
+    $connections_get_all->render();
 
     /*
      * Resource Servers
      */
 
-    $res_servers_get_all = new ApiTestResourceServersGetAll( [], 'Resource Servers - Get All' );
-    // $res_servers_get_all->render();
+    $res_servers_get_all = new ApiTestResourceServersGetAll([], 'Resource Servers - Get All');
+    $res_servers_get_all->render();
 
     /*
      * Users
      */
 
-    $user_search = new ApiTestUserSearch( [
+    $user_search = new ApiTestUserSearch([
         'q' => 'email:"josh.cunningham@auth0.com"'
-    ], 'Users - Search' );
+    ], 'Users - Search');
     // $user_search->render();
 
-    $get_user = new ApiTestUserGet( [ 'id' => 'auth0|5a78b127ed65e34236bd2c2b' ], 'Users - Get One' );
-    // $get_user->render();
+    $get_user = new ApiTestUserGet([ 'id' => 'auth0|5a78b127ed65e34236bd2c2b' ], 'Users - Get One');
+    $get_user->render();
 
     /*
      * Email Templates
      */
 
-    $user_search = new ApiTestEmailTemplateGet( [
+    $user_search = new ApiTestEmailTemplateGet([
         'q' => 'email:"josh.cunningham@auth0.com"'
-    ], 'Users - Search' );
-    // $user_search->render();
+    ], 'Users - Search');
+    $user_search->render();
 
-    $get_email_tpl = new ApiTestEmailTemplateGet( [ 'templateName' => 'verify_email' ], 'Email Template - Get One' );
-    // $get_email_tpl->render();
+    $get_email_tpl = new ApiTestEmailTemplateGet([ 'templateName' => 'verify_email' ], 'Email Template - Get One');
+    $get_email_tpl->render();
     ?>
 
 </article>

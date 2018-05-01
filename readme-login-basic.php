@@ -3,8 +3,8 @@ require __DIR__ . '/auth0/vendor/autoload.php';
 use josegonzalez\Dotenv\Loader;
 
 // Setup environment vars
-$Dotenv = new Loader( __DIR__ . '/.env' );
-$Dotenv->parse()->putenv( true );
+$Dotenv = new Loader(__DIR__ . '/.env');
+$Dotenv->parse()->putenv(true);
 
 //======================================================================================================================
 
@@ -14,7 +14,7 @@ use Auth0\SDK\Auth0;
 
 // Setup the Auth0 class with required credentials.
 // No API calls are made on instantiation.
-$auth0 = new Auth0( [
+$auth0 = new Auth0([
 
     // See Installation above to setup environment variables.
     'domain' => getenv('AUTH0_DOMAIN'),
@@ -27,9 +27,9 @@ $auth0 = new Auth0( [
 
     // The minimum scope required to use the returned access token with the /userinfo endpoint.
     'scope' => 'openid',
-] );
+]);
 
-if ( ! empty( $_GET['error'] ) || ! empty( $_GET['error_description'] ) ) {
+if (! empty($_GET['error']) || ! empty($_GET['error_description'])) {
     // Handle errors sent back by Auth0.
 }
 
@@ -39,11 +39,11 @@ if ( ! empty( $_GET['error'] ) || ! empty( $_GET['error_description'] ) ) {
 $userinfo = $auth0->getUser();
 
 // We have no persisted user and no `code` parameter so we redirect to the Universal Login Page.
-if ( empty( $userinfo ) ) {
+if (empty($userinfo)) {
     $auth0->login();
 }
 
 // We either have a persisted user or a successful code exchange.
-var_dump( $userinfo );
+var_dump($userinfo);
 
 // Redirect somewhere to remove `code` and `state` parameters to avoid a fatal error on refresh.
