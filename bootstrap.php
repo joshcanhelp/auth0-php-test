@@ -31,7 +31,7 @@ $auth0 = new Auth0([
     'persist_refresh_token' => true,
 ]);
 
-$mgmt_api = new Management(getenv('AUTH0_TOKEN'), getenv('AUTH0_DOMAIN'));
+$mgmt_api = new Management(getenv('AUTH0_MANAGEMENT_API_TOKEN'), getenv('AUTH0_DOMAIN'));
 
 // Dynamic page actions
 if (isset($_GET[ 'action' ])) {

@@ -5,26 +5,23 @@ use Auth0\SDK\API\Management;
 
 abstract class ApiTestAbstract
 {
-    protected $domain = '';
-    protected $token = '';
     protected $api;
-    protected $title = '';
     protected $params = [];
+    protected $title = '';
     protected $data = [];
-  
-  /**
-   * ApiTestAbstract constructor.
-   *
-   * @param array $params
-   * @param string $title
-   */
-    public function __construct($params = [], $title = '')
+
+    /**
+     * ApiTestAbstract constructor.
+     *
+     * @param Management $api
+     * @param array $params
+     * @param string $title
+     */
+    public function __construct(Management $api, $params = [], $title = '')
     {
-        $this->domain = getenv('AUTH0_DOMAIN');
-        $this->token = getenv('AUTH0_TOKEN');
+        $this->api = $api;
         $this->params = $params;
         $this->title = $title;
-        $this->api = new Management($this->token, $this->domain);
     }
   
   /**
