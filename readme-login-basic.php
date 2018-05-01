@@ -23,7 +23,7 @@ $auth0 = new Auth0( [
     'audience' => getenv('AUTH0_AUTH_AUDIENCE'),
 
     // This would be the URL for this file in this example.
-    'redirect_uri' => getenv('AUTH0_LOGIN_CALLBACK_URL'),
+    'redirect_uri' => getenv('AUTH0_LOGIN_BASIC_CALLBACK_URL'),
 
     // The minimum scope required to use the returned access token with the /userinfo endpoint.
     'scope' => 'openid',
@@ -38,12 +38,12 @@ if ( ! empty( $_GET['error'] ) || ! empty( $_GET['error_description'] ) ) {
 // If the state validation and code exchange are successful, return the userinfo.
 $userinfo = $auth0->getUser();
 
-if ( ! empty( $userinfo ) ) {
-    // We either have a persisted user or a successful code exchange.
-    var_dump( $userinfo );
-} else {
-    // We have no persisted user and no `code` parameter so we redirect to the Universal Login Page.
+// We have no persisted user and no `code` parameter so we redirect to the Universal Login Page.
+if ( empty( $userinfo ) ) {
     $auth0->login();
 }
+
+// We either have a persisted user or a successful code exchange.
+var_dump( $userinfo );
 
 // Redirect somewhere to remove `code` and `state` parameters to avoid a fatal error on refresh.
