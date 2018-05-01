@@ -40,47 +40,20 @@ use Auth0\SDK\Scaffold\ApiTestEmailTemplateGet;
     <?php endif; ?>
 
     <?php
-    /*
-     * Clients
-     */
-
     $client_get_all = new ApiTestClientsGetAll([], 'Clients - Get All');
     $client_get_all->render();
-
-    /*
-     * Connections
-     */
 
     $connections_get_all = new ApiTestConnectionsGetAll([], 'Connections - Get All');
     $connections_get_all->render();
 
-    /*
-     * Resource Servers
-     */
-
     $res_servers_get_all = new ApiTestResourceServersGetAll([], 'Resource Servers - Get All');
     $res_servers_get_all->render();
 
-    /*
-     * Users
-     */
-
-    $user_search = new ApiTestUserSearch([
-        'q' => 'email:"josh.cunningham@auth0.com"'
-    ], 'Users - Search');
-    // $user_search->render();
+    $user_search = new ApiTestUserSearch(['q' => 'email:"josh.cunningham@auth0.com"'], 'Users - Search');
+     $user_search->render();
 
     $get_user = new ApiTestUserGet([ 'id' => 'auth0|5a78b127ed65e34236bd2c2b' ], 'Users - Get One');
     $get_user->render();
-
-    /*
-     * Email Templates
-     */
-
-    $user_search = new ApiTestEmailTemplateGet([
-        'q' => 'email:"josh.cunningham@auth0.com"'
-    ], 'Users - Search');
-    $user_search->render();
 
     $get_email_tpl = new ApiTestEmailTemplateGet([ 'templateName' => 'verify_email' ], 'Email Template - Get One');
     $get_email_tpl->render();
