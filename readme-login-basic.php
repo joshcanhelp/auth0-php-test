@@ -9,7 +9,7 @@ $Dotenv->parse()->putenv(true);
 //======================================================================================================================
 
 // Example #1
-// index.php
+// login.php
 use Auth0\SDK\Auth0;
 
 // Setup the Auth0 class with required credentials.
@@ -26,7 +26,7 @@ $auth0 = new Auth0([
     'redirect_uri' => getenv('AUTH0_LOGIN_BASIC_CALLBACK_URL'),
 
     // The minimum scope required to use the returned access token with the /userinfo endpoint.
-    'scope' => 'openid',
+    'scope' => 'openid email name nickname picture updated_at profile',
 ]);
 
 if (! empty($_GET['error']) || ! empty($_GET['error_description'])) {
@@ -46,4 +46,5 @@ if (empty($userinfo)) {
 // We either have a persisted user or a successful code exchange.
 var_dump($userinfo);
 
+// This is where a user record in a local database would be retrieved and matched or created.
 // Redirect somewhere to remove `code` and `state` parameters to avoid a fatal error on refresh.

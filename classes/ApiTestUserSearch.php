@@ -7,7 +7,7 @@ final class ApiTestUserSearch extends ApiTestAbstract
     public function call()
     {
         $this->data = $this->api->users->search([
-        'q' => $this->params[ 'q' ]
+            'q' => $this->params[ 'q' ]
         ]);
     }
 
