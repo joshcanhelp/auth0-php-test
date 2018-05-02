@@ -12,8 +12,7 @@ $Dotenv->parse()->putenv(true);
 // login.php
 use Auth0\SDK\Auth0;
 
-// Setup the Auth0 class with required credentials.
-// No API calls are made on instantiation.
+// Initialize the Auth0 class with required credentials.
 $auth0 = new Auth0([
 
     // See Installation above to setup environment variables.
@@ -23,10 +22,10 @@ $auth0 = new Auth0([
     'audience' => getenv('AUTH0_AUTH_AUDIENCE'),
 
     // This would be the URL for this file in this example.
-    'redirect_uri' => getenv('AUTH0_LOGIN_BASIC_CALLBACK_URL'),
+    'redirect_uri' => getenv('AUTH0_LOGIN_CALLBACK_URL'),
 
-    // The minimum scope required to use the returned access token with the /userinfo endpoint.
-    'scope' => 'openid email name nickname picture updated_at profile',
+    // The scope determines what data is provided by the /userinfo endpoint.
+    'scope' => 'openid',
 ]);
 
 if (! empty($_GET['error']) || ! empty($_GET['error_description'])) {
@@ -46,5 +45,5 @@ if (empty($userinfo)) {
 // We either have a persisted user or a successful code exchange.
 var_dump($userinfo);
 
-// This is where a user record in a local database would be retrieved and matched or created.
+// This is where a user record in a local database could be retrieved or created.
 // Redirect somewhere to remove `code` and `state` parameters to avoid a fatal error on refresh.

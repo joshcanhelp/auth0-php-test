@@ -26,24 +26,21 @@ if (empty($_GET[ 'token_alg' ]) || ! in_array($_GET[ 'token_alg' ], [ 'HS256', '
     exit;
 }
 
+$config = [
+    'supported_algs' => [ $_GET[ 'token_alg' ] ],
+    'client_secret' => getenv('AUTH0_CLIENT_SECRET'),
+];
+
 if ('HS256' === $_GET[ 'token_alg' ]) {
-    $config = [
-        'supported_algs' => [ 'HS256' ],
-        'client_secret' => getenv('AUTH0_CLIENT_SECRET'),
-        'valid_audiences' => [ getenv('AUTH0_CLIENT_ID') ]
-    ];
+    $config['client_secret'] = getenv('AUTH0_CLIENT_SECRET');
 } else {
-    $config = [
-        'supported_algs' => [ 'RS256' ],
-        'authorized_iss' => [ 'https://' . getenv('AUTH0_DOMAIN') . '/' ],
-        'valid_audiences' => [ getenv('AUTH0_CLIENT_ID') ]
-    ];
+    $config['authorized_iss'] = [ 'https://' . getenv('AUTH0_DOMAIN') . '/' ];
 }
 
-$decoded_token = [];
 try {
     $verifier = new JWTVerifier($config);
     $decoded_token = $verifier->verifyAndDecode($_GET[ 'id_token' ]);
+    echo '<pre>' . print_r($decoded_token, true) . '</pre>';
 } catch (InvalidTokenException $e) {
     echo 'Caught: InvalidTokenException - ' . $e->getMessage();
 } catch (CoreException $e) {
@@ -51,6 +48,3 @@ try {
 } catch (\Exception $e) {
     echo 'Caught: Exception - ' . $e->getMessage();
 }
-
-echo '<pre>' . print_r($decoded_token, true) . '</pre>';
-die();
