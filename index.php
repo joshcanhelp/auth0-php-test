@@ -6,6 +6,7 @@ require 'bootstrap.php';
 
 use Auth0\SDK\Scaffold\ApiTestClientsGetAll;
 use Auth0\SDK\Scaffold\ApiTestConnectionsGetAll;
+use Auth0\SDK\Scaffold\ApiTestEmailProviderGet;
 use Auth0\SDK\Scaffold\ApiTestResourceServersGetAll;
 use Auth0\SDK\Scaffold\ApiTestUserSearch;
 use Auth0\SDK\Scaffold\ApiTestUserGet;
@@ -39,20 +40,23 @@ use Auth0\SDK\Scaffold\ApiTestUserGet;
     <?php endif; ?>
 
     <?php
-    $client_get_all = new ApiTestClientsGetAll($mgmt_api, [], 'Clients - Get All');
-    $client_get_all->render();
+//    $email_provider_get = new ApiTestEmailProviderGet($mgmt_api, [], 'Email Provider - Get');
+//    $email_provider_get->render();
 
-    $connections_get_all = new ApiTestConnectionsGetAll($mgmt_api, [], 'Connections - Get All');
-    $connections_get_all->render();
-
-    $res_servers_get_all = new ApiTestResourceServersGetAll($mgmt_api, [], 'Resource Servers - Get All');
-    $res_servers_get_all->render();
-
-    $user_search = new ApiTestUserSearch($mgmt_api, ['q' => 'email:"josh.cunningham@auth0.com"'], 'Users - Search');
-    $user_search->render();
-
-    $get_user = new ApiTestUserGet($mgmt_api, [ 'id' => 'auth0|5a78b127ed65e34236bd2c2b' ], 'Users - Get 1');
-    $get_user->render();
+//    $client_get_all = new ApiTestClientsGetAll($mgmt_api, [], 'Clients - Get All');
+//    $client_get_all->render();
+//
+//    $connections_get_all = new ApiTestConnectionsGetAll($mgmt_api, [], 'Connections - Get All');
+//    $connections_get_all->render();
+//
+//    $res_servers_get_all = new ApiTestResourceServersGetAll($mgmt_api, [], 'Resource Servers - Get All');
+//    $res_servers_get_all->render();
+//
+//    $user_search = new ApiTestUserSearch($mgmt_api, ['q' => 'email:"josh.cunningham@auth0.com"'], 'Users - Search');
+//    $user_search->render();
+//
+//    $get_user = new ApiTestUserGet($mgmt_api, [ 'id' => 'auth0|5a78b127ed65e34236bd2c2b' ], 'Users - Get 1');
+//    $get_user->render();
     ?>
 
 </article>

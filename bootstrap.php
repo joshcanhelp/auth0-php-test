@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 // Composer autoloader
 require __DIR__ . '/auth0/vendor/autoload.php';
@@ -25,13 +28,13 @@ $auth0 = new Auth0([
     'client_secret' => $a0_client_secret,
     'redirect_uri' => $a0_redirect_uri,
     'audience' => $a0_audience,
-    'scope' => 'openid profile offline_access',
+    'scope' => 'openid email name nickname',
     'persist_id_token' => true,
     'persist_access_token' => true,
     'persist_refresh_token' => true,
 ]);
 
-$mgmt_api = new Management(getenv('AUTH0_MANAGEMENT_API_TOKEN'), getenv('AUTH0_DOMAIN'));
+$mgmt_api = new Management(getenv('AUTH0_MANAGEMENT_API_TOKEN'), $a0_domain);
 
 // Dynamic page actions
 if (isset($_GET[ 'action' ])) {

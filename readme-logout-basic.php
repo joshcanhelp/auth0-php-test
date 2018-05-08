@@ -34,6 +34,7 @@ $auth0_logout = $auth0_api->get_logout_link(
 
     // This needs to be saved in the "Allowed Logout URLs" field in your Application settings.
     getenv('AUTH0_LOGOUT_RETURN_URL'),
+
     // Need to indicate the specific Application.
     getenv('AUTH0_CLIENT_ID')
 );
