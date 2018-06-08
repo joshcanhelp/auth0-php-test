@@ -23,32 +23,32 @@ abstract class ApiTestAbstract
         $this->params = $params;
         $this->title = $title;
     }
-  
-  /**
-   * Call the management API
-   */
+
+    /**
+     * Call the management API
+     */
     abstract protected function call();
-  
-  /**
-   * Output an item from a returned array of items
-   *
-   * @param $datum
-   *
-   * @return string
-   */
+
+    /**
+     * Output an item from a returned array of items
+     *
+     * @param $datum
+     *
+     * @return string
+     */
     abstract protected function renderDataItem($datum);
 
-  /**
-   * Output the section header
-   */
+    /**
+     * Output the section header
+     */
     protected function renderTitle()
     {
         printf('<h2>%s</h2>', ! empty($this->title) ? $this->title : __METHOD__);
     }
 
-  /**
-   * Output the data header
-   */
+    /**
+     * Output the data header
+     */
     protected function renderDataHeader()
     {
         printf(
@@ -57,9 +57,9 @@ abstract class ApiTestAbstract
         );
     }
 
-  /**
-   * Output the data
-   */
+    /**
+     * Output the data
+     */
     protected function renderData()
     {
         if (! empty($this->data)) {
@@ -71,14 +71,24 @@ abstract class ApiTestAbstract
         }
     }
 
-  /**
-   * Render all the things
-   */
+    /**
+     * Render all the things
+     */
     public function render()
     {
         $this->call();
         $this->renderTitle();
         $this->renderDataHeader();
         $this->renderData();
+    }
+
+    /**
+     *
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->data;
     }
 }

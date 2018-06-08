@@ -28,7 +28,7 @@ $auth0 = new Auth0([
     'client_secret' => $a0_client_secret,
     'redirect_uri' => $a0_redirect_uri,
     'audience' => $a0_audience,
-    'scope' => 'openid email name nickname',
+    'scope' => 'openid email name nickname offline_access',
     'persist_id_token' => true,
     'persist_access_token' => true,
     'persist_refresh_token' => true,
@@ -44,6 +44,17 @@ if (isset($_GET[ 'action' ])) {
             break;
         case 'logout':
             $auth0->logout();
+            break;
+        case 'renew':
+            try {
+                if ($auth0->renewTokens()) {
+                    echo '<div class="alert alert-success">Token renewed.</div>';
+                } else {
+                    echo '<div class="alert alert-danger">No tokens received.</div>';
+                }
+            } catch (Exception $e) {
+                echo '<div class="alert alert-danger">' . $e->getMessage() . '</div>';
+            }
             break;
     }
 }

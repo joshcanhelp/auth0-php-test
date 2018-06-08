@@ -3,7 +3,9 @@ namespace Auth0\SDK\Scaffold;
 
 final class ApiTestConnectionsGetAll extends ApiTestAbstract
 {
-    
+    /**
+     * @throws \Exception
+     */
     public function call()
     {
         $this->data = $this->api->connections->getAll();
