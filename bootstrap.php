@@ -47,11 +47,8 @@ if (isset($_GET[ 'action' ])) {
             break;
         case 'renew':
             try {
-                if ($auth0->renewTokens()) {
-                    echo '<div class="alert alert-success">Token renewed.</div>';
-                } else {
-                    echo '<div class="alert alert-danger">No tokens received.</div>';
-                }
+                $auth0->renewTokens();
+                header('Location: ' . $a0_redirect_uri);
             } catch (Exception $e) {
                 echo '<div class="alert alert-danger">' . $e->getMessage() . '</div>';
             }

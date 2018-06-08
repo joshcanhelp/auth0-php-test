@@ -50,8 +50,8 @@ use Auth0\SDK\Scaffold\ApiTestUserDelete;
             }
             ?>
         </ul>
-        <p><a href="?action=logout" class="btn btn-primary btn-sm">Logout</a></p>
-        <!--        <p><a href="?action=renew" class="btn btn-primary btn-sm">Renew</a></p>-->
+        <p><a href="?action=logout" class="btn btn-primary btn-sm">Logout</a>
+            <a href="?action=renew" class="btn btn-primary btn-sm">Renew</a></p>
     <?php else : ?>
         <h2>Not Logged In</h2>
         <p><a href="?action=login" class="btn btn-primary btn-sm">Login</a></p>
