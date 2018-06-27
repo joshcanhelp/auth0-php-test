@@ -19,6 +19,8 @@ use Auth0\SDK\Scaffold\ApiTestUserCreate;
 use Auth0\SDK\Scaffold\ApiTestUserUpdate;
 use Auth0\SDK\Scaffold\ApiTestUserDelete;
 
+use Auth0\SDK\Scaffold\ApiTestLogsSearch;
+
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -118,6 +120,14 @@ use Auth0\SDK\Scaffold\ApiTestUserDelete;
     //        'per_page' => 30
     //    ], 'Users - Get All');
     //    $users_get_all->render();
+
+    $logs_search = new ApiTestLogsSearch($mgmt_api, [
+        'fields' => 'log_id,date,description',
+        'include_fields' => true,
+        'page' => 0,
+        'per_page' => 30
+    ], 'Logs - Search');
+    $logs_search->render();
     ?>
 
 </article>

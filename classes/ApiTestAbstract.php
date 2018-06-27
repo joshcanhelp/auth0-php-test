@@ -62,6 +62,7 @@ abstract class ApiTestAbstract
      */
     protected function renderData()
     {
+        // echo  '<pre>' . print_r($this->data, true) . '</pre>';
         if (! empty($this->data)) {
             echo '<ul>';
             foreach ($this->data as $datum) {
