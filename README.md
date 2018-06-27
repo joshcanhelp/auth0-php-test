@@ -3,13 +3,7 @@ This "app" was made to explore, test, and develop the [Auth0 PHP SDK](https://gi
 
 ## Installation
 
-There is very little to do to get this up and running. It uses Composer to autoload Auth0 and the classes it uses. So, first clone the Auth0 repo:
-
-```
-git clone https://github.com/auth0/auth0-PHP.git auth0
-```
-
-Once that is complete, install Composer (if installed globally):
+This project uses Composer to autoload Auth0 and the classes it uses. Clone this repo somewhere and `cd` into it. Once that is complete, install Composer (if installed globally):
 
 ```
 composer install
@@ -23,7 +17,16 @@ php composer.phar install
 
 Copy the `example.env` file to `.env` and replace the values there with what's on your [Application](https://manage.auth0.com/#/applications) settings screen in the Auth0 dashboard (click **Create Application** if you're starting from scratch).
 
-Now, just run the [built-in PHP server](https://secure.php.net/manual/en/features.commandline.webserver.php) and you're ready to go:
+Now clone the Auth0 repo and composer install there:
+
+```
+> git clone https://github.com/auth0/auth0-PHP.git auth0
+> cd auth0
+> composer install 
+> cd ..
+```
+
+Now, run the [built-in PHP server](https://secure.php.net/manual/en/features.commandline.webserver.php) and you're ready to go:
 
 ```
 php -S localhost:5000
