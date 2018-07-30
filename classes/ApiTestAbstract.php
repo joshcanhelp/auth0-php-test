@@ -2,13 +2,18 @@
 namespace Auth0\SDK\Scaffold;
 
 use Auth0\SDK\API\Management;
+use GuzzleHttp\Psr7\Response;
 
 abstract class ApiTestAbstract
 {
     protected $api;
     protected $params = [];
     protected $title = '';
-    protected $data = [];
+
+    /**
+     * @var array|Response
+     */
+    protected $data;
 
     /**
      * ApiTestAbstract constructor.
@@ -62,7 +67,10 @@ abstract class ApiTestAbstract
      */
     protected function renderData()
     {
+        // Declare this method in a child class and use the output below for troubleshooting.
         // echo  '<pre>' . print_r($this->data, true) . '</pre>';
+
+        // Use this for distinct entries with a specific output.
         if (! empty($this->data)) {
             echo '<ul>';
             foreach ($this->data as $datum) {

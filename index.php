@@ -61,73 +61,82 @@ use Auth0\SDK\Scaffold\ApiTestLogsSearch;
     <hr>
 
     <?php
-    //    $email_provider_get = new ApiTestEmailProviderGet($mgmt_api, [], 'Email Provider - Get');
-    //    $email_provider_get->render();
-    //
-    //    $client_get_all->render();
-    //
-    //    $connections_get_all = new ApiTestConnectionsGetAll($mgmt_api, [], 'Connections - Get All');
-    //    $connections_get_all->render();
-    //
-    //    $res_servers_get_all = new ApiTestResourceServersGetAll($mgmt_api, [], 'Resource Servers - Get All');
-    //    $res_servers_get_all->render();
-    //
-    //    $user_search = new ApiTestUserSearch(
-    //        $mgmt_api, [
-    //        'q' => 'email:"josh.cunningham@auth0.com"'
-    //    ],
-    //        'Users - Search');
-    //    $user_search->render();
-    //
-    //    $user_create = new ApiTestUserCreate($mgmt_api, [
-    //        'connection' => 'Username-Password-Authentication',
-    //        'email' => 'josh+' . rand() . '@joshcanhelp.com',
-    //        'password' => '1',
-    //        'picture' => 'https://i0.heartyhosting.com/radaronline.com/wp-content/uploads/2011/08/stevejobs-5.jpg',
-    //        'user_metadata' => [
-    //            'key1' => 'value1',
-    //            'key2' => 'value2',
-    //        ]
-    //    ], 'Users - Create');
-    //    $user_create->render();
-    //    $user_create_data = $user_create->getData();
-    //
-    //    $user_get = new ApiTestUserGet($mgmt_api, [ 'id' => $user_create_data['user_id'] ], 'Users - Get 1');
-    //    $user_get->render();
-    //
-    //    $user_update = new ApiTestUserUpdate($mgmt_api, [
-    //        'id' => $user_create_data['user_id'],
-    //        'params' => [
-    //            'email_verified' => true,
-    //            'user_metadata' => [
-    //                'key1' => 'value4',
-    //                'key3' => 'value3',
-    //            ]
-    //        ]
-    //    ], 'Users - Update');
-    //    $user_update->render();
-    //
-    //    $user_delete = new ApiTestUserDelete($mgmt_api, [ 'id' => $user_create_data['user_id'] ], 'Users - Delete 1');
-    //    $user_delete->render();
-
-    //    $users_get_all = new ApiTestUsersGetAll($mgmt_api, [
-    //        'params' => [
-    //            'include_totals' => true
-    //        ],
-    //        'fields' => ['user_id', 'name', 'picture'],
-    //        'include_fields' => true,
-    //        'page' => 0,
-    //        'per_page' => 30
-    //    ], 'Users - Get All');
-    //    $users_get_all->render();
-
-    $logs_search = new ApiTestLogsSearch($mgmt_api, [
-        'fields' => 'log_id,date,description',
-        'include_fields' => true,
-        'page' => 0,
-        'per_page' => 30
-    ], 'Logs - Search');
-    $logs_search->render();
+//    $email_provider_get = new ApiTestEmailProviderGet($mgmt_api, [], 'Email Provider - Get');
+//    $email_provider_get->render();
+//
+//    $client_get_all->render();
+//
+//    $connections_get_all = new ApiTestConnectionsGetAll($mgmt_api, [], 'Connections - Get All');
+//    $connections_get_all->render();
+//
+//    $res_servers_get_all = new ApiTestResourceServersGetAll($mgmt_api, [], 'Resource Servers - Get All');
+//    $res_servers_get_all->render();
+//
+//    $user_search = new ApiTestUserSearch(
+//        $mgmt_api, [
+//        'q' => 'email:"josh.cunningham@auth0.com"'
+//    ],
+//        'Users - Search');
+//    $user_search->render();
+//
+//    $user_create = new ApiTestUserCreate($mgmt_api, [
+//        'connection' => 'Username-Password-Authentication',
+//        'email' => 'josh+' . rand() . '@joshcanhelp.com',
+//        'password' => '1',
+//        'picture' => 'https://i0.heartyhosting.com/radaronline.com/wp-content/uploads/2011/08/stevejobs-5.jpg',
+//        'user_metadata' => [
+//            'key1' => 'value1',
+//            'key2' => 'value2',
+//        ]
+//    ], 'Users - Create');
+//    $user_create->render();
+//    $user_create_data = $user_create->getData();
+//
+//    $user_get = new ApiTestUserGet($mgmt_api, [ 'id' => $user_create_data['user_id'] ], 'Users - Get 1');
+//    $user_get->render();
+//
+//    $user_update = new ApiTestUserUpdate($mgmt_api, [
+//        'id' => $user_create_data['user_id'],
+//        'params' => [
+//            'email_verified' => true,
+//            'user_metadata' => [
+//                'key1' => 'value4',
+//                'key3' => 'value3',
+//            ]
+//        ]
+//    ], 'Users - Update');
+//    $user_update->render();
+//
+//    $user_delete = new ApiTestUserDelete($mgmt_api, [ 'id' => $user_create_data['user_id'] ], 'Users - Delete 1');
+//    $user_delete->render();
+//
+//    $users_get_all = new ApiTestUsersGetAll($mgmt_api, [
+//        'params' => [
+//            'include_totals' => true
+//        ],
+//        'fields' => ['user_id', 'name', 'picture'],
+//        'include_fields' => true,
+//        'page' => 0,
+//        'per_page' => 30
+//    ], 'Users - Get All');
+//    $users_get_all->render();
+//
+//    // Error handling
+//    $logs_search = new ApiTestLogsSearch($mgmt_api, [
+//        'fields' => 'log_id,date,description',
+//        'include_fields' => true,
+//        'page' => 0,
+//        'per_page' => 30
+//    ], 'Logs - Search');
+//
+//    try {
+//        $logs_search->render();
+//    } catch ( GuzzleHttp\Exception\ClientException $e ) {
+//        echo GuzzleHttp\Psr7\str( $e->getRequest() ) . '<br>';
+//        echo GuzzleHttp\Psr7\str( $e->getResponse() ). '<br>';
+//        echo $e->getMessage() . '<br>';
+//        echo $e->getCode() . '<br>';
+//    }
     ?>
 
 </article>
