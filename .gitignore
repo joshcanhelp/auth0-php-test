@@ -1,5 +1,4 @@
 .env
 vendor
-auth0/.git
-auth0/.gitignore
+auth0
 favicon.ico
