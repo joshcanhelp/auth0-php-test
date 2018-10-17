@@ -1,4 +1,4 @@
 .env
 vendor
-auth0
+auth0/
 favicon.ico
