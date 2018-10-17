@@ -12,17 +12,23 @@ final class ApiTestClientsGetAll extends ApiTestAbstract
         $include_fields = isset($this->params['include_fields']) ? $this->params['include_fields'] : null;
         $page = isset($this->params['page']) ? $this->params['page'] : 0;
         $per_page = isset($this->params['per_page']) ? $this->params['per_page'] : null;
-        $this->data = $this->api->clients->getAll($fields, $include_fields, null, $page, $per_page);
+        $this->data = $this->api->clients->getAll($fields, $include_fields, $page, $per_page);
     }
 
     protected function renderData()
     {
+//        echo  '<pre>' . print_r($this->data, true) . '</pre>';
         if (!empty($this->data)) {
-            echo '<div>';
-            foreach ($this->data as $datum) {
-                echo $this->renderDataItem($datum);
+//            echo '<div>';
+//            foreach ($this->data->getHeaders() as $datum) {
+//                echo $this->renderDataItem();
+//            }
+//            echo '</div>';
+            echo '<ul>';
+            foreach ($this->data->getHeaders() as $header => $values) {
+                echo '<li><strong>' . $header . '</strong>: ' . $values[0] . '</li>';
             }
-            echo '</div>';
+            echo '</ul>';
         }
     }
     

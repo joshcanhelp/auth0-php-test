@@ -4,6 +4,7 @@
  */
 require 'bootstrap.php';
 
+use Auth0\SDK\Store\SessionStore;
 use Auth0\SDK\Scaffold\ApiTestClientsGetAll;
 
 use Auth0\SDK\Scaffold\ApiTestConnectionsGetAll;
@@ -21,6 +22,7 @@ use Auth0\SDK\Scaffold\ApiTestUserDelete;
 
 use Auth0\SDK\Scaffold\ApiTestLogsSearch;
 
+$user = $auth0->getUser();
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -39,8 +41,17 @@ use Auth0\SDK\Scaffold\ApiTestLogsSearch;
 <article>
     <h1>Auth0 Test Suite</h1>
     <p>Current PHP version <?php echo phpversion() ?></p>
+    <p>
+        <a href="http://<?php echo $_SERVER[ 'HTTP_HOST' ] ?>" class="btn btn-default btn-sm">Home</a>
+        <?php if ($user) : ?>
+            <a href="?action=logout" class="btn btn-primary btn-sm">Logout</a>
+            <a href="?action=renew" class="btn btn-primary btn-sm">Renew</a>
+        <?php else : ?>
+            <a href="?action=login" class="btn btn-primary btn-sm">Login</a>
+        <?php endif; ?>
+    </p>
     <hr>
-    <?php if ($user = $auth0->getUser()) : ?>
+    <?php if ($user) : ?>
         <h2>Logged In</h2>
         <ul>
             <?php
@@ -48,24 +59,26 @@ use Auth0\SDK\Scaffold\ApiTestLogsSearch;
                 printf('<li><strong>%s:</strong> %s</li>', $key, $attr);
             }
             foreach (['access_token', 'id_token', 'refresh_token'] as $key) {
-                printf('<li><strong>%s:</strong> %s</li>', $key, $_SESSION['auth0__' . $key]);
+                printf('<li><strong>%s:</strong> %s</li>', $key, $_SESSION[AUTH0_SESSION_BASE_NAME . '_' . $key]);
             }
             ?>
         </ul>
-        <p><a href="?action=logout" class="btn btn-primary btn-sm">Logout</a>
-            <a href="?action=renew" class="btn btn-primary btn-sm">Renew</a></p>
-    <?php else : ?>
-        <h2>Not Logged In</h2>
-        <p><a href="?action=login" class="btn btn-primary btn-sm">Login</a></p>
     <?php endif; ?>
-    <hr>
+
+    <?php if ( ! empty( $_SESSION ) ) : ?>
+        <h2>$_SESSION</h2>
+        <?php echo '<pre>' . print_r( $_SESSION, TRUE ) . '</pre>'; ?>
+        <hr>
+    <?php endif; ?>
+
 
     <?php
 //    $email_provider_get = new ApiTestEmailProviderGet($mgmt_api, [], 'Email Provider - Get');
 //    $email_provider_get->render();
 //
-//    $client_get_all->render();
-//
+//$clients_get_all = new ApiTestClientsGetAll($mgmt_api, [], 'Clients - Get All');
+//$clients_get_all->render();
+    //
 //    $connections_get_all = new ApiTestConnectionsGetAll($mgmt_api, [], 'Connections - Get All');
 //    $connections_get_all->render();
 //

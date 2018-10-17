@@ -8,7 +8,7 @@ final class ApiTestConnectionsGetAll extends ApiTestAbstract
      */
     public function call()
     {
-        $this->data = $this->api->connections->getAll();
+        $this->data = $this->api->connections->create();
     }
     
     public function renderData()

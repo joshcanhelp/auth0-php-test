@@ -9,7 +9,13 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Auth0\SDK\Auth0;
 use Auth0\SDK\API\Management;
+use Auth0\SDK\Helpers\JWKFetcher;
 use josegonzalez\Dotenv\Loader;
+
+// Constants
+
+//define( 'AUTH0_SESSION_BASE_NAME', SessionStore::BASE_NAME );
+define( 'AUTH0_SESSION_BASE_NAME', 'banana' );
 
 // Setup environment vars
 $Dotenv = new Loader(__DIR__ . '/.env');
@@ -28,16 +34,21 @@ $auth0 = new Auth0([
     'client_secret' => $a0_client_secret,
     'redirect_uri' => $a0_redirect_uri,
     'audience' => $a0_audience,
+
     'scope' => 'openid email name nickname offline_access',
+
     'persist_id_token' => true,
     'persist_access_token' => true,
     'persist_refresh_token' => true,
+
+    'session_base_name' => AUTH0_SESSION_BASE_NAME,
+
+//    'id_token_alg' => 'RS256',
+//    'id_token_aud' => [ $a0_client_id ],
+//    'id_token_iss' => [ 'https://'.$a0_domain.'/', 'https://'.$a0_domain.'/userinfo' ],
 ]);
 
-$mgmt_api = new Management(
-    getenv('AUTH0_MANAGEMENT_API_TOKEN'),
-    $a0_domain
-);
+$mgmt_api = new Management(getenv('AUTH0_MANAGEMENT_API_TOKEN'), $a0_domain, [], 'object');
 
 // Dynamic page actions
 if (isset($_GET[ 'action' ])) {

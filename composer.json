@@ -3,7 +3,8 @@
   "description": "Testing the Auth0 PHP SDK",
   "type": "project",
   "require": {
-    "php": "^5.5 || ^7.0"
+    "php": "^5.5 || ^7.0",
+    "phpunit/phpunit": "^6"
   },
   "autoload": {
     "psr-4": {
@@ -19,8 +20,9 @@
     }
   ],
   "scripts": {
-    "php-compat" : "phpcs ./auth0 --standard=PHPCompatibility --runtime-set testVersion 5.5 --extensions=php",
-    "phpcs"      : "phpcs --standard=PSR2 --extensions=php --ignore=./auth0/*,./vendor/* .",
-    "phpcbf"     : "phpcbf --standard=PSR2 --extensions=php --ignore=./auth0/*,./vendor/* ."
+    "php-compat" : "vendor/bin/phpcs ./auth0 --standard=PHPCompatibility --runtime-set testVersion 5.5 --extensions=php",
+    "phpcs"      : "vendor/bin/phpcs --standard=PSR2 --extensions=php --ignore=./auth0/*,./vendor/* .",
+    "phpcbf"     : "vendor/bin/phpcbf --standard=PSR2 --extensions=php --ignore=./auth0/*,./vendor/* .",
+    "test"     : "vendor/bin/phpunit ./tests/*"
   }
 }
