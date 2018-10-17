@@ -1,5 +1,5 @@
 .env
-composer.lock
 vendor
-auth0
+auth0/.git
+auth0/.gitignore
 favicon.ico
