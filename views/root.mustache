@@ -1,0 +1,13 @@
+{{< layout }}
+
+{{$ title }}{{ home.title }}{{/ title }}
+
+{{$ content }}
+<ul>
+    {{# home.links }}
+        <li><a href="{{ base_url }}/{{ . }}">{{ . }}</a></li>
+    {{/ home.links }}
+</ul>
+{{/ content }}
+
+{{/ layout }}

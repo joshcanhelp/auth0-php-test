@@ -1,0 +1,12 @@
+{{< layout }}
+
+{{$ title }}{{ users.title }}{{/ title }}
+
+{{$ content }}
+<h2>Users</h2>
+{{# users.results }}
+    <p><img src="{{ picture }}" width="50">&nbsp;&nbsp;<strong>{{ name }}</strong> - {{ user_id }}</p>
+{{/ users.results }}
+{{/ content }}
+
+{{/ layout }}

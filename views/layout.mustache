@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{$ title }}Test PHP SDK{{/ title }}</title>
+    <link rel="stylesheet" href="//cdn.auth0.com/styleguide/core/2.0.5/core.min.css">
+    <link rel="stylesheet" href="//cdn.auth0.com/styleguide/components/2.0.0/components.min.css">
+    <link rel="stylesheet" href="main.css">
+
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<article>
+    <h1>Auth0 Test Suite</h1>
+    <p>
+        <strong>PHP:</strong> {{php_ver}}<br>
+        <strong>Auth0 Domain:</strong> {{a0_domain}}
+    </p>
+    <p>
+        <a href="{{base_url}}" class="btn btn-default btn-sm">Home</a>
+        {{# logged_in }}
+            <a href="{{base_url}}/logout" class="btn btn-primary btn-sm">Logout</a>
+            <a href="{{base_url}}/profile" class="btn btn-primary btn-sm">Profile</a>
+        {{/ logged_in }}
+        {{^ logged_in }}
+            <a href="{{base_url}}/login" class="btn btn-primary btn-sm">Login</a>
+        {{/ logged_in }}
+    </p>
+    <hr>
+    {{$ content }}
+    <p>Nothing to show here...</p>
+    {{/ content }}
+</article>
+</body>
+</html>

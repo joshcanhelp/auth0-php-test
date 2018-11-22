@@ -1,0 +1,24 @@
+{{< layout }}
+
+{{$ title }}{{ logs.title }}{{/ title }}
+
+{{$ content }}
+<h2>Logs</h2>
+<table>
+    <thead>
+        <th>Type</th><th>Desc</th><th>Client ID</th><th>Telemetry</th>
+    </thead>
+    <tbody>
+    {{# logs.results }}
+        <tr>
+            <td><code>{{ type }}</code></td>
+            <td>{{ description }}</td>
+            <td>{{ client_id }}</td>
+            <td>{{ auth0_client }}</td>
+        </tr>
+    {{/ logs.results }}
+    </tbody>
+</table>
+{{/ content }}
+
+{{/ layout }}
