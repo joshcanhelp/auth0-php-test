@@ -3,10 +3,14 @@
 {{$ title }}{{ logs.title }}{{/ title }}
 
 {{$ content }}
-<h2>Logs</h2>
+<h2>{{ logs.title }}</h2>
 <table>
     <thead>
-        <th>Type</th><th>Desc</th><th>Client ID</th><th>Telemetry</th>
+        <th>Type</th>
+        <th>Desc</th>
+        <th>Client ID</th>
+        <th>Telemetry</th>
+        <th>Link</th>
     </thead>
     <tbody>
     {{# logs.results }}
@@ -15,6 +19,7 @@
             <td>{{ description }}</td>
             <td>{{ client_id }}</td>
             <td>{{ auth0_client }}</td>
+            <td><a href="https://manage.auth0.com/#/logs/{{ log_id }}" target="_blank">Go&nbsp;👉</a></td>
         </tr>
     {{/ logs.results }}
     </tbody>

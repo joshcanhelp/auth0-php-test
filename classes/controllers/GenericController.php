@@ -69,7 +69,23 @@ abstract class GenericController {
      * @return string
      */
     protected function render( $name ) {
-        header("Content-Type: text/html; charset=utf-8");
+        $this->setHtmlContentType();
         echo $this->mustache->loadTemplate($name)->render($this->tpl_vars);
+    }
+
+    /**
+     * @param \Exception $e - PHP Exception.
+     */
+    protected function renderError( $e ) {
+        $this->setHtmlContentType();
+        $this->tpl_vars['page'] = [
+            'title' => 'Error - Code: ' . ( $e->getCode() ? $e->getCode() : 'Unknown Code' ),
+            'content' => $e->getMessage(),
+        ];
+        echo $this->mustache->loadTemplate('page')->render($this->tpl_vars);
+    }
+
+    private function setHtmlContentType() {
+        header("Content-Type: text/html; charset=utf-8");
     }
 }

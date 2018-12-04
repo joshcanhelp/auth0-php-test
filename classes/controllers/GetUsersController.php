@@ -11,9 +11,14 @@ class GetUsersController extends GenericController
      */
     public function handle() {
 
-        $results = $this->management->users->getAll([
-            'sort' => 'created_at:-1',
-        ]);
+        try {
+            $results = $this->management->users->getAll([
+                'sort' => 'created_at:-1',
+            ]);
+        } catch ( \Exception $e ) {
+            $this->renderError($e);
+            return;
+        }
 
         foreach ( $results as $index => $result ) {
             $results[$index]['picture'] = isset( $result['picture'] ) ?
