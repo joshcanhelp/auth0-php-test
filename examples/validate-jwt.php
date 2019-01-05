@@ -1,10 +1,5 @@
 <?php
-require __DIR__ . '/auth0/vendor/autoload.php';
-use josegonzalez\Dotenv\Loader;
-
-// Setup environment vars
-$Dotenv = new Loader(__DIR__ . '/.env');
-$Dotenv->parse()->putenv(true);
+require '../bootstrap.php';
 
 //======================================================================================================================
 
@@ -34,7 +29,7 @@ $config = [
 if ('HS256' === $_GET[ 'token_alg' ]) {
     $config['client_secret'] = getenv('AUTH0_CLIENT_SECRET');
 } else {
-    $config['authorized_iss'] = [ 'https://' . getenv('AUTH0_DOMAIN') . '/' ];
+    $config['authorized_iss'] = [ 'https://' . AUTH0_DOMAIN . '/' ];
 }
 
 try {

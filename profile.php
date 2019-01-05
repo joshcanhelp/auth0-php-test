@@ -1,10 +1,5 @@
 <?php
-require __DIR__ . '/auth0/vendor/autoload.php';
-use josegonzalez\Dotenv\Loader;
-
-// Setup environment vars
-$Dotenv = new Loader(__DIR__ . '/.env');
-$Dotenv->parse()->putenv(true);
+require 'bootstrap.php';
 
 //======================================================================================================================
 
@@ -22,7 +17,8 @@ if ($userinfo) {
         '<h1>Hi %s!</h1>
         <p><img width="100" src="%s"></p>
         <p><strong>Last update:</strong> %s</p>
-        <p><strong>Contact:</strong> %s %s</p>',
+        <p><strong>Contact:</strong> %s %s</p>
+        <p><a href="logout.php">Logout</a></p>',
         isset($userinfo['nickname']) ? strip_tags($userinfo['nickname']) : '[unknown]',
         isset($userinfo['picture'])
             ? filter_var($userinfo['picture'], FILTER_SANITIZE_URL)
@@ -34,5 +30,5 @@ if ($userinfo) {
         !empty($userinfo[ 'email_verified' ]) ? '✓' : '✗'
     );
 } else {
-    echo '<p>Please login to view your profile.</p>';
+    echo '<p>Please <a href="login.php">login</a> to view your profile.</p>';
 }

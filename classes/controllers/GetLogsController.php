@@ -2,8 +2,6 @@
 
 namespace Auth0\SDK\Scaffold\Controllers;
 
-use PHPUnit\Runner\Exception;
-
 class GetLogsController extends GenericController
 {
     /**
@@ -14,8 +12,6 @@ class GetLogsController extends GenericController
     public function handle() {
 
         $params = [
-            'fields' => 'type,description,auth0_client,client_id,log_id',
-            'include_fields' => true,
             'page' => 0,
             'per_page' => 100,
             'sort' => 'date:-1'
@@ -36,11 +32,13 @@ class GetLogsController extends GenericController
             $results[$index]['auth0_client'] = isset( $result['auth0_client'] ) ?
                 json_encode( $result['auth0_client'] ) :
                 'none';
+            $results[$index]['date'] = explode('.', explode('T', $result['date'])[1])[0];
         }
 
         $this->tpl_vars['logs'] = [
             'title' => 'Logs - Test PHP SDK',
             'results' => $results,
+            'manage_domain' => 'manage.' . ( strpos(AUTH0_DOMAIN, 'local.dev') ? 'local.dev.' : '' ) . 'auth0.com',
         ];
 
         $this->render('logs');

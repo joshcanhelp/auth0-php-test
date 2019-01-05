@@ -21,7 +21,8 @@ $Dotenv->parse()->putenv(true);
 define('DOC_ROOT', __DIR__ . '/');
 define('BASE_URL', 'http://' . $_SERVER[ 'HTTP_HOST' ]);
 
-define('AUTH0_DOMAIN', getenv('AUTH0_DOMAIN'));
+define('AUTH0_TENANT', getenv('AUTH0_TENANT'));
+define('AUTH0_DOMAIN', AUTH0_TENANT . '.auth0.com');
 define('AUTH0_CLIENT_ID', getenv('AUTH0_CLIENT_ID'));
 define('AUTH0_CLIENT_SECRET', getenv('AUTH0_CLIENT_SECRET'));
 define('AUTH0_CALLBACK_PATH', '/auth/callback');
@@ -36,9 +37,12 @@ $auth0 = new Auth0([
     'persist_id_token' => true,
     'persist_access_token' => true,
     'persist_refresh_token' => true,
+    'guzzle_options' => [
+        'verify' => false
+    ]
 ]);
 
-$mgmt_api = new Management(getenv('AUTH0_MANAGEMENT_API_TOKEN'), AUTH0_DOMAIN);
+$mgmt_api = new Management(getenv('AUTH0_MANAGEMENT_API_TOKEN'), AUTH0_DOMAIN, ['verify' => false]);
 
 // Routes
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {

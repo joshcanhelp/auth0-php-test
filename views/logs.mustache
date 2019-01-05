@@ -8,6 +8,7 @@
     <thead>
         <th>Type</th>
         <th>Desc</th>
+        <th>Date</th>
         <th>Client ID</th>
         <th>Telemetry</th>
         <th>Link</th>
@@ -17,9 +18,10 @@
         <tr>
             <td><code>{{ type }}</code></td>
             <td>{{ description }}</td>
+            <td>{{ date }}</td>
             <td>{{ client_id }}</td>
             <td>{{ auth0_client }}</td>
-            <td><a href="https://manage.auth0.com/#/logs/{{ log_id }}" target="_blank">Go&nbsp;👉</a></td>
+            <td><a href="https://{{ logs.manage_domain }}/#/logs/{{ _id }}" target="_blank">Go&nbsp;👉</a></td>
         </tr>
     {{/ logs.results }}
     </tbody>

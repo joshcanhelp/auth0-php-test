@@ -1,10 +1,5 @@
 <?php
-require __DIR__ . '/auth0/vendor/autoload.php';
-use josegonzalez\Dotenv\Loader;
-
-// Setup environment vars
-$Dotenv = new Loader(__DIR__ . '/.env');
-$Dotenv->parse()->putenv(true);
+require '../bootstrap.php';
 
 //======================================================================================================================
 
@@ -13,7 +8,7 @@ $Dotenv->parse()->putenv(true);
 use Auth0\SDK\API\Management;
 
 $access_token = getenv('AUTH0_MANAGEMENT_API_TOKEN');
-$mgmt_api = new Management($access_token, getenv('AUTH0_DOMAIN'));
+$mgmt_api = new Management($access_token, AUTH0_DOMAIN);
 
 //======================================================================================================================
 
