@@ -2,10 +2,21 @@
 
 namespace Auth0\SDK\Scaffold\Controllers;
 
+/**
+ * Class RootController
+ *
+ * @package Auth0\SDK\Scaffold\Controllers
+ */
 class RootController extends GenericController
 {
 
-    public function handle() {
+    /**
+     * Handle homepage output.
+     *
+     * @return void
+     */
+    public function handle()
+    {
         $this->tpl_vars['home'] = [
             'title' => 'Home - Test PHP SDK',
             'links' => [ 'logs', 'users' ]

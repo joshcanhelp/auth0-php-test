@@ -1,8 +1,7 @@
 <?php
 require 'bootstrap.php';
 
-//======================================================================================================================
-
+// ======================================================================================================================
 // Example #1
 // login.php
 use Auth0\SDK\Auth0;
@@ -32,10 +31,10 @@ $auth0 = new Auth0([
 // If the state validation and code exchange are successful, return the userinfo.
 try {
     $userinfo = $auth0->getUser();
-} catch ( CoreException $e ) {
+} catch (CoreException $e) {
     // Invalid state or session already exists.
     die( $e->getMessage() );
-} catch ( ApiException $e ) {
+} catch (ApiException $e) {
     // Access token not present.
     die( $e->getMessage() );
 }

@@ -1,18 +1,16 @@
 <?php
 require '../bootstrap.php';
 
-//======================================================================================================================
-
+// ======================================================================================================================
 use Auth0\SDK\API\Authentication;
 use Auth0\SDK\Store\SessionStore;
 use Auth0\SDK\API\Helpers\State\SessionStateHandler;
 
-if ( ! is_user_authenticated() ) {
-
+if (! isUserAuthenticated()) {
     // Generate and store a state value.
     $session_store = new SessionStore();
     $state_handler = new SessionStateHandler($session_store);
-    $state_value = $state_handler->issue();
+    $state_value   = $state_handler->issue();
 
     // Generate and store a nonce value.
     $nonce_value = uniqid();
@@ -25,24 +23,36 @@ if ( ! is_user_authenticated() ) {
 
     // Generate the authorize URL.
     $authorize_url = $auth0_api->get_authorize_link(
-        'code', // Response expected by the application.
-        getenv('AUTH0_REDIRECT_URI'), // Callback URL to respond to.
-        null, // Connection to use, null for all.
-        $state_value, // State value to send with the request.
+        // Response expected by the application.
+        'code',
+        // Callback URL to respond to.
+        getenv('AUTH0_REDIRECT_URI'),
+        // Connection to use, null for all.
+        null,
+        // State value to send with the request.
+        $state_value,
         [
-            'response_mode' => 'form_post', // Respond with the code and state in a POST body.
-            'scope' => 'openid email profile', // Userinfo to allow.
+            // Respond with the code and state in a POST body.
+            'response_mode' => 'form_post',
+            // Userinfo to allow.
+            'scope' => 'openid email profile',
         ]
     );
 
-    header('Location: ' . $authorize_url);
+    header('Location: '.$authorize_url);
     exit;
 }
 
 echo '<h1>Sensitive data!</h1>';
 
-function is_user_authenticated() {
-    $store = new SessionStore();
+/**
+ * Determine if a user session exists.
+ *
+ * @return boolean
+ */
+function isUserAuthenticated()
+{
+    $store    = new SessionStore();
     $userinfo = $store->get('user');
-    return !empty( $userinfo );
+    return ! empty( $userinfo );
 }

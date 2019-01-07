@@ -1,17 +1,15 @@
 <?php
 require '../bootstrap.php';
 
-//======================================================================================================================
-
+// ======================================================================================================================
 // Example #5
 // management-examples.php
 use Auth0\SDK\API\Management;
 
 $access_token = getenv('AUTH0_MANAGEMENT_API_TOKEN');
-$mgmt_api = new Management($access_token, AUTH0_DOMAIN);
+$mgmt_api     = new Management($access_token, AUTH0_DOMAIN);
 
-//======================================================================================================================
-
+// ======================================================================================================================
 $results = $mgmt_api->users->search([
     'q' => 'josh'
 ]);
@@ -21,15 +19,14 @@ if (! empty($results)) {
     foreach ($results as $datum) {
         printf(
             '<p><strong>%s</strong> &lt;%s&gt; - %s</p>',
-            !empty($datum['nickname']) ? $datum['nickname'] : 'No nickname',
-            !empty($datum['email']) ? $datum['email'] : 'No email',
+            ! empty($datum['nickname']) ? $datum['nickname'] : 'No nickname',
+            ! empty($datum['email']) ? $datum['email'] : 'No email',
             $datum['user_id']
         );
     }
 }
 
-//======================================================================================================================
-
+// ======================================================================================================================
 $results = $mgmt_api->clients->getAll();
 
 if (! empty($results)) {

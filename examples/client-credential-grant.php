@@ -1,8 +1,7 @@
 <?php
 require '../bootstrap.php';
 
-//======================================================================================================================
-
+// ======================================================================================================================
 // Example #5
 use \Auth0\SDK\API\Authentication;
 use \Auth0\SDK\Exception\ApiException;
@@ -18,7 +17,7 @@ $config = [
 
 try {
     $result = $auth0_api->client_credentials($config);
-    echo '<pre>' . print_r($result, true) . '</pre>';
+    echo '<pre>'.print_r($result, true).'</pre>';
     die();
 } catch (ClientException $e) {
     die( $e->getMessage() );

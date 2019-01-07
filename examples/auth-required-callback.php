@@ -1,8 +1,7 @@
 <?php
 require '../bootstrap.php';
 
-//======================================================================================================================
-
+// ======================================================================================================================
 use Auth0\SDK\API\Authentication;
 use Auth0\SDK\Store\SessionStore;
 use Auth0\SDK\API\Helpers\State\SessionStateHandler;
@@ -14,14 +13,14 @@ if (! empty($_POST['error']) || ! empty($_POST['error_description'])) {
 }
 
 // Nothing to do.
-if ( empty( $_POST['code'] ) ) {
+if (empty( $_POST['code'] )) {
     die('No authorization code found.');
 }
 
 // Validate callback state.
 $session_store = new SessionStore();
 $state_handler = new SessionStateHandler($session_store);
-if ( ! isset( $_POST['state'] ) || ! $state_handler->validate( $_POST['state'] ) ) {
+if (! isset( $_POST['state'] ) || ! $state_handler->validate( $_POST['state'] )) {
     die('Invalid state.');
 }
 

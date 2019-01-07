@@ -1,8 +1,7 @@
 <?php
 require 'bootstrap.php';
 
-//======================================================================================================================
-
+// ======================================================================================================================
 // logout.php
 use Auth0\SDK\Auth0;
 
@@ -16,12 +15,11 @@ $auth0 = new Auth0([
 // Log out of the local application.
 $auth0->logout();
 
-//======================================================================================================================
+// ======================================================================================================================
 // logout.php
 use Auth0\SDK\API\Authentication;
 
 // ... application logout
-
 // Setup the Authentication class with required credentials.
 // No API calls are made on instantiation.
 $auth0_auth_api = new Authentication(getenv('AUTH0_DOMAIN'));
@@ -36,5 +34,5 @@ $auth0_logout_url = $auth0_auth_api->get_logout_link(
     getenv('AUTH0_CLIENT_ID')
 );
 
-header('Location: ' . $auth0_logout_url);
+header('Location: '.$auth0_logout_url);
 exit;

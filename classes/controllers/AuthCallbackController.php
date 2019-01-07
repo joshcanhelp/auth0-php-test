@@ -2,19 +2,28 @@
 
 namespace Auth0\SDK\Scaffold\Controllers;
 
+/**
+ * Class AuthCallbackController
+ *
+ * @package Auth0\SDK\Scaffold\Controllers
+ */
 class AuthCallbackController extends GenericController
 {
     /**
-     * @return mixed|void
+     * Handle the authentication callback.
      *
-     * @throws \Auth0\SDK\Exception\ApiException
-     * @throws \Auth0\SDK\Exception\CoreException
+     * @return void
+     *
+     * @throws \Auth0\SDK\Exception\ApiException No access token returned from the API.
+     * @throws \Auth0\SDK\Exception\CoreException Invalid state or exists session.
      */
-    public function handle() {
+    public function handle()
+    {
         $redirect = BASE_URL;
-        if ( $this->auth0->getUser() ) {
+        if ($this->auth0->getUser()) {
             $redirect .= '/profile';
         }
-        header( 'Location: ' . $redirect );
+
+        header( 'Location: '.$redirect );
     }
 }
