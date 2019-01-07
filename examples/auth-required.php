@@ -12,10 +12,6 @@ if (! isUserAuthenticated()) {
     $state_handler = new SessionStateHandler($session_store);
     $state_value   = $state_handler->issue();
 
-    // Generate and store a nonce value.
-    $nonce_value = uniqid();
-    $session_store->set( 'auth0_webauth_nonce', $nonce_value );
-
     $auth0_api = new Authentication(
         getenv('AUTH0_DOMAIN'),
         getenv('AUTH0_CLIENT_ID')

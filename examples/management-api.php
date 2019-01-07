@@ -6,8 +6,15 @@ require '../bootstrap.php';
 // management-examples.php
 use Auth0\SDK\API\Management;
 
-$access_token = getenv('AUTH0_MANAGEMENT_API_TOKEN');
-$mgmt_api     = new Management($access_token, AUTH0_DOMAIN);
+if ('test' === getenv('APPLICATION_ENVIRONMENT')) {
+    // Use a temporary testing token.
+    $access_token = getenv('AUTH0_MANAGEMENT_API_TOKEN');
+} else {
+    // See Authentication API page to implement this function.
+    $access_token = getManagementAccessToken();
+}
+
+$mgmt_api = new Management( $access_token, getenv('AUTH0_DOMAIN') );
 
 // ======================================================================================================================
 $results = $mgmt_api->users->search([

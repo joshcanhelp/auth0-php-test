@@ -11,12 +11,12 @@ $auth0_api = new Authentication(
 
 try {
     $result = $auth0_api->dbconnections_signup(
+        // A valid email address that does not already exist for the connection.
         'user@example.com',
-    // A valid email address that does not already exist for the connection.
+        // Password conforming to the password policy for the connection.
         'That_Is_1_Strong_Password!',
-    // Password conforming to the password policy for the connection.
+        // Database connection name.
         'Username-Password-Authentication'
-    // Database connection name.
     );
 } catch (Exception $e) {
     // This could be an Exception from the SDK or the HTTP client.

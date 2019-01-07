@@ -2,7 +2,6 @@
 require 'bootstrap.php';
 
 // ======================================================================================================================
-// Example #1
 // login.php
 use Auth0\SDK\Auth0;
 use Auth0\SDK\Exception\CoreException;
