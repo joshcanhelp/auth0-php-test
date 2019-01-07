@@ -6,18 +6,22 @@ require '../bootstrap.php';
 use Auth0\SDK\API\Authentication;
 use Auth0\SDK\Store\SessionStore;
 use Auth0\SDK\API\Helpers\State\SessionStateHandler;
-use \Auth0\SDK\Exception\ApiException;
-use \GuzzleHttp\Exception\ClientException;
+
+// Handle errors sent back by Auth0.
+if (! empty($_POST['error']) || ! empty($_POST['error_description'])) {
+    printf( '<h1>Error</h1><p>%s</p>', htmlspecialchars( $_GET['error_description'] ) );
+    die();
+}
 
 // Nothing to do.
-if ( empty( $_GET['code'] ) ) {
+if ( empty( $_POST['code'] ) ) {
     die('No authorization code found.');
 }
 
 // Validate callback state.
 $session_store = new SessionStore();
 $state_handler = new SessionStateHandler($session_store);
-if ( ! isset( $_GET['state'] ) || ! $state_handler->validate( $_GET['state'] ) ) {
+if ( ! isset( $_POST['state'] ) || ! $state_handler->validate( $_POST['state'] ) ) {
     die('Invalid state.');
 }
 
@@ -30,21 +34,19 @@ $auth0_api = new Authentication(
 
 try {
     // Attempt to get an access_token with the code returned and original redirect URI.
-    $code_exchange_result = $auth0_api->code_exchange( $_GET['code'], getenv('AUTH0_REDIRECT_URI') );
-} catch (ClientException $e) {
-    die( $e->getMessage() );
-} catch (ApiException $e) {
+    $code_exchange_result = $auth0_api->code_exchange( $_POST['code'], getenv('AUTH0_REDIRECT_URI') );
+} catch (Exception $e) {
+    // This could be an Exception from the SDK or the HTTP client.
     die( $e->getMessage() );
 }
 
 try {
     // Attempt to get an access_token with the code returned and original redirect URI.
     $userinfo_result = $auth0_api->userinfo( $code_exchange_result['access_token'] );
-} catch (ClientException $e) {
+} catch (Exception $e) {
     die( $e->getMessage() );
 }
 
 $session_store->set('user', $userinfo_result);
-
 header('Location: /examples/auth-required.php');
 exit;

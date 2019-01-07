@@ -14,6 +14,10 @@ if ( ! is_user_authenticated() ) {
     $state_handler = new SessionStateHandler($session_store);
     $state_value = $state_handler->issue();
 
+    // Generate and store a nonce value.
+    $nonce_value = uniqid();
+    $session_store->set( 'auth0_webauth_nonce', $nonce_value );
+
     $auth0_api = new Authentication(
         getenv('AUTH0_DOMAIN'),
         getenv('AUTH0_CLIENT_ID')
@@ -26,7 +30,7 @@ if ( ! is_user_authenticated() ) {
         null, // Connection to use, null for all.
         $state_value, // State value to send with the request.
         [
-            'response_mode' => 'query', // Respond with the code and state in the URL query.
+            'response_mode' => 'form_post', // Respond with the code and state in a POST body.
             'scope' => 'openid email profile', // Userinfo to allow.
         ]
     );
