@@ -18,11 +18,15 @@ $auth0 = new Auth0([
     'domain' => getenv('AUTH0_DOMAIN'),
     'client_id' => getenv('AUTH0_CLIENT_ID'),
     'client_secret' => getenv('AUTH0_CLIENT_SECRET'),
-    'redirect_uri' => getenv('AUTH0_REDIRECT_URI'),
+    'redirect_uri' => getenv('AUTH0_LOGIN_BASIC_CALLBACK_URL'),
 
     // The scope determines what data is provided by the /userinfo endpoint.
     // There must be at least one valid scope included here.
-    'scope' => 'openid',
+//     'scope' => 'openid',
+
+    // The following will request just an API token.
+    'scope'         => 'read:messages',
+    'audience'      => 'http://localhost:8000/lucky/number',
 ]);
 
 // If there is a user persisted (PHP session by default), return that.
@@ -48,4 +52,4 @@ var_dump($userinfo);
 
 // This is where a user record in a local database could be retrieved or created.
 // End with a redirect to a new page.
-header('Location: /profile.php');
+//header('Location: /profile.php');
