@@ -5,12 +5,17 @@ error_reporting(E_ALL);
 
 // Composer autoloader for Auth0.
 require __DIR__.'/auth0/vendor/autoload.php';
+
 // Composer autoloader for project.
 require __DIR__.'/vendor/autoload.php';
 
+// Functions we should have.
+require __DIR__.'/functions.php';
+
 use Auth0\SDK\Auth0;
-use Auth0\SDK\API\Management;
+use Auth0\SDK\API\Authentication;
 use Auth0\SDK\Scaffold\Controllers;
+
 use josegonzalez\Dotenv\Loader;
 
 $Dotenv = new Loader(__DIR__.'/.env');
@@ -25,21 +30,15 @@ define('AUTH0_CLIENT_SECRET', getenv('AUTH0_CLIENT_SECRET'));
 define('AUTH0_CALLBACK_PATH', '/auth/callback');
 
 $auth0 = new Auth0( [
-    'domain'                => AUTH0_DOMAIN,
-    'client_id'             => AUTH0_CLIENT_ID,
-    'client_secret'         => AUTH0_CLIENT_SECRET,
-    'redirect_uri'          => BASE_URL.AUTH0_CALLBACK_PATH,
-    'audience'              => 'http://localhost:8000/lucky/number',
-    'scope'                 => 'read:messages',
-//    'persist_id_token'      => true,
-//    'persist_access_token'  => true,
-//    'persist_refresh_token' => true,
-//    'guzzle_options'        => [
-//        'verify' => false,
-//    ],
+    'domain'               => AUTH0_DOMAIN,
+    'client_id'            => AUTH0_CLIENT_ID,
+    'client_secret'        => AUTH0_CLIENT_SECRET,
+    'redirect_uri'         => BASE_URL.AUTH0_CALLBACK_PATH,
+    'scope'                => 'openid email profile',
+    'persist_id_token'     => true,
+    'persist_access_token' => true,
+    'audience'             => 'this-is-a-test-api',
 ] );
-
-$mgmt_api = new Management(getenv('AUTH0_MANAGEMENT_API_TOKEN'), AUTH0_DOMAIN, ['verify' => false]);
 
 // Routes.
 $dispatcher = FastRoute\simpleDispatcher(
@@ -53,15 +52,13 @@ $dispatcher = FastRoute\simpleDispatcher(
 
         $r->addRoute('GET', '/logs', Controllers\GetLogsController::class);
         $r->addRoute('GET', '/users', Controllers\GetUsersController::class);
+        $r->addRoute('GET', '/grants', Controllers\GetGrantsController::class);
+        $r->addRoute('GET', '/roles-test', Controllers\RolesTestController::class);
     }
 );
 
 // Strip query string (?foo=bar) and decode URI.
-$uri = $_SERVER['REQUEST_URI'];
-$pos = strpos($uri, '?');
-if (false !== $pos) {
-    $uri = substr($uri, 0, $pos);
-}
+$uri = explode('?', $_SERVER['REQUEST_URI'])[0];
 
 $routeInfo = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], rawurldecode($uri));
 
@@ -72,7 +69,10 @@ switch ($routeInfo[0]) {
         die('<h1>405</h1>');
 
     case FastRoute\Dispatcher::FOUND:
-        $handler = new $routeInfo[1]($auth0, $mgmt_api, $routeInfo[2]);
+        Predis\Autoloader::register();
+        $client = new Predis\Client();
+        $auth_api = new Authentication( AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET );
+        $handler = new $routeInfo[1]($auth0, $auth_api, $client, $routeInfo[2]);
         $handler->handle();
         break;
 

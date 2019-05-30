@@ -1,0 +1,32 @@
+{{< layout }}
+
+{{$ title }}{{ users.title }}{{/ title }}
+
+{{$ content }}
+<h2>Grants</h2>
+<p>
+    <a href="https://auth0.com/docs/api/management/v2#!/Grants/get_grants" target="_blank">Grants docs</a>
+</p>
+<table>
+    <thead>
+    <th>ID</th>
+    <th>Client ID</th>
+    <th>User ID</th>
+    <th>Audience</th>
+    <th>Scopes</th>
+    </thead>
+    <tbody>
+    {{# grants.results }}
+        <tr>
+            <td><code>{{ id }}</code></td>
+            <td><a href="https://manage.auth0.com/#/applications/{{ clientID }}/settings">{{ clientID }}</a></td>
+            <td><code>{{ user_strategy }}</code><br>{{ user_id }}</td>
+            <td>{{ audience }}</td>
+            <td>{{ scope }}</td>
+        </tr>
+    {{/ grants.results }}
+    </tbody>
+</table>
+{{/ content }}
+
+{{/ layout }}

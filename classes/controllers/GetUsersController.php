@@ -19,7 +19,7 @@ class GetUsersController extends GenericController
     public function handle()
     {
         try {
-            $results = $this->management->users->getAll([
+            $results = $this->callManagementApi()->users->getAll([
                 'sort' => 'created_at:-1',
             ]);
         } catch (\Exception $e) {

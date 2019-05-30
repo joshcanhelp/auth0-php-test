@@ -2,8 +2,11 @@
 
 namespace Auth0\SDK\Scaffold\Controllers;
 
+use Auth0\SDK\API\Authentication;
 use Auth0\SDK\Auth0;
 use Auth0\SDK\API\Management;
+
+use Predis\Client;
 
 /**
  * Class GenericController
@@ -26,6 +29,20 @@ abstract class GenericController
      * @var Management
      */
     protected $management;
+
+    /**
+     * Instance of Auth0\SDK\API\Authentication.
+     *
+     * @var Authentication
+     */
+    protected $authentication;
+
+    /**
+     * Instance of Predis\Client.
+     *
+     * @var Client
+     */
+    protected $redis;
 
     /**
      * URL query parameters.
@@ -51,26 +68,30 @@ abstract class GenericController
     /**
      * GenericController constructor.
      *
-     * @param Auth0      $auth0 Injected Auth0 instance.
-     * @param Management $m_api Injected Management instance.
-     * @param array      $vars  URL query parameters.
+     * @param Auth0          $auth0 Injected Auth0 instance.
+     * @param Authentication $a_api Injected Authentication instance.
+     * @param Client $redis Injected Predis\Client instance.
+     * @param array          $vars  URL query parameters.
      */
-    public function __construct(Auth0 $auth0, Management $m_api, array $vars)
+    public function __construct(Auth0 $auth0, Authentication $a_api, Client $redis, array $vars)
     {
         $this->auth0      = $auth0;
-        $this->management = $m_api;
+        $this->authentication = $a_api;
+        $this->redis = $redis;
         $this->vars       = $vars;
         $this->mustache   = new \Mustache_Engine(
-        [
-            'pragmas' => [\Mustache_Engine::PRAGMA_BLOCKS],
-            'loader'  => new \Mustache_Loader_FilesystemLoader(DOC_ROOT.'views'),
-        ]
+            [
+                'pragmas' => [\Mustache_Engine::PRAGMA_BLOCKS],
+                'loader'  => new \Mustache_Loader_FilesystemLoader(DOC_ROOT.'views'),
+            ]
         );
 
         $this->tpl_vars = [
             'base_url'  => BASE_URL,
             'php_ver'   => phpversion(),
             'a0_domain' => AUTH0_DOMAIN,
+            'a0_tenant' => AUTH0_TENANT,
+            'a0_client_id' => AUTH0_CLIENT_ID,
             'logged_in' => isset($_SESSION['auth0__user']),
         ];
     }
@@ -110,6 +131,34 @@ abstract class GenericController
             'content' => $e->getMessage(),
         ];
         echo $this->mustache->loadTemplate('page')->render($this->tpl_vars);
+    }
+
+    /**
+     * @return Management
+     */
+    protected function callManagementApi()
+    {
+        if ( $this->management instanceof Management ) {
+            return $this->management;
+        }
+
+        $api_token = getenv('AUTH0_MANAGEMENT_API_TOKEN') ?: $this->redis->get('auth0_api_token');
+
+        if ( ! $api_token ) {
+            try {
+                $response = $this->authentication->client_credentials( [
+                    'audience' => 'https://' . AUTH0_DOMAIN . '/api/v2/'
+                ] );
+                $api_token = $response[ 'access_token' ];
+                $this->redis->set('auth0_api_token', $api_token);
+                $this->redis->expire('auth0_api_token', $response[ 'expires_in' ]);
+            } catch ( \Exception $e ) {
+                die( $e->getMessage() );
+            }
+        }
+
+        $this->management = new Management($api_token, AUTH0_DOMAIN);
+        return $this->management;
     }
 
     /**
