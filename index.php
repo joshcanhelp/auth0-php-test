@@ -54,6 +54,7 @@ $dispatcher = FastRoute\simpleDispatcher(
         $r->addRoute('GET', '/users', Controllers\GetUsersController::class);
         $r->addRoute('GET', '/grants', Controllers\GetGrantsController::class);
         $r->addRoute('GET', '/roles-test', Controllers\RolesTestController::class);
+        $r->addRoute('GET', '/users-test', Controllers\UsersTestController::class);
     }
 );
 
