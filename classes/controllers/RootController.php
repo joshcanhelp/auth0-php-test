@@ -19,7 +19,7 @@ class RootController extends GenericController
     {
         $this->tpl_vars['home'] = [
             'title' => 'Home - Test PHP SDK',
-            'links' => [ 'logs', 'users', 'grants', 'roles-test', 'users-test' ],
+            'links' => [ 'logs', 'users', 'grants', 'roles-test', 'users-test', 'generate-token' ],
         ];
         $this->render('root');
     }

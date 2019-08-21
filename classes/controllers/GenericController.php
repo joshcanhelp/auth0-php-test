@@ -107,11 +107,16 @@ abstract class GenericController
      * Output a specific template with variables.
      *
      * @param string $name File name.
+     * @param array $tpl_vars Page template variables.
      *
      * @return void
      */
-    protected function render($name)
+    protected function render($name, array $tpl_vars = [])
     {
+        if ( ! empty( $tpl_vars ) ) {
+            $this->tpl_vars['page'] = $tpl_vars;
+        }
+
         $this->setHtmlContentType();
         echo $this->mustache->loadTemplate($name)->render($this->tpl_vars);
     }

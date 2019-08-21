@@ -54,7 +54,7 @@ class UsersTestController extends GenericController
 
             // Get Roles for User
             $content .= '<h3>Get Roles for User</h3>';
-            $api_results = $this->callManagementApi()->users->getRoles( $user_id );
+            $api_results = $this->callManagementApi()->users->getRoles( $user_id, [ 'include_totals' => null ] );
             $content .= '<pre>' . print_r( $api_results, TRUE ) . '</pre>';
 
             // Get Enrollments for User

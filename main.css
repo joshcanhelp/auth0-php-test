@@ -27,4 +27,8 @@ table td {
 
 pre {
     padding: 1.5em 2em;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-all;
 }

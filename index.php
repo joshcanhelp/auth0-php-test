@@ -37,7 +37,6 @@ $auth0 = new Auth0( [
     'scope'                => 'openid email profile',
     'persist_id_token'     => true,
     'persist_access_token' => true,
-    'audience'             => 'this-is-a-test-api',
 ] );
 
 // Routes.
@@ -55,6 +54,7 @@ $dispatcher = FastRoute\simpleDispatcher(
         $r->addRoute('GET', '/grants', Controllers\GetGrantsController::class);
         $r->addRoute('GET', '/roles-test', Controllers\RolesTestController::class);
         $r->addRoute('GET', '/users-test', Controllers\UsersTestController::class);
+        $r->addRoute('GET', '/generate-token', Controllers\GenerateTokenController::class);
     }
 );
 
