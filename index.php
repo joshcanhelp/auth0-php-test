@@ -17,6 +17,7 @@ use Auth0\SDK\API\Authentication;
 use Auth0\SDK\Scaffold\Controllers;
 
 use josegonzalez\Dotenv\Loader;
+use Firebase\JWT\JWT;
 
 $Dotenv = new Loader(__DIR__.'/.env');
 $Dotenv->parse()->putenv(true);
@@ -29,11 +30,13 @@ define('AUTH0_CLIENT_ID', getenv('AUTH0_CLIENT_ID'));
 define('AUTH0_CLIENT_SECRET', getenv('AUTH0_CLIENT_SECRET'));
 define('AUTH0_CALLBACK_PATH', '/auth/callback');
 
+JWT::$leeway = 60;
+
 $auth0 = new Auth0( [
     'domain'               => AUTH0_DOMAIN,
     'client_id'            => AUTH0_CLIENT_ID,
     'client_secret'        => AUTH0_CLIENT_SECRET,
-    'redirect_uri'         => BASE_URL.AUTH0_CALLBACK_PATH,
+    'redirect_uri'         => BASE_URL . ( isset( $_GET['show-code'] ) ? '/show-code' : AUTH0_CALLBACK_PATH ),
     'scope'                => 'openid email profile',
     'persist_id_token'     => true,
     'persist_access_token' => true,
@@ -47,6 +50,7 @@ $dispatcher = FastRoute\simpleDispatcher(
         $r->addRoute('GET', '/login', Controllers\LoginController::class);
         $r->addRoute('GET', '/logout', Controllers\LogoutController::class);
         $r->addRoute(['GET', 'POST'], AUTH0_CALLBACK_PATH, Controllers\AuthCallbackController::class);
+        $r->addRoute('GET', '/show-code', Controllers\ShowCodeController::class);
         $r->addRoute('GET', '/profile', Controllers\ProfileController::class);
 
         $r->addRoute('GET', '/logs', Controllers\GetLogsController::class);
@@ -55,6 +59,8 @@ $dispatcher = FastRoute\simpleDispatcher(
         $r->addRoute('GET', '/roles-test', Controllers\RolesTestController::class);
         $r->addRoute('GET', '/users-test', Controllers\UsersTestController::class);
         $r->addRoute('GET', '/generate-token', Controllers\GenerateTokenController::class);
+        $r->addRoute('GET', '/import-users', Controllers\ImportUsersGetTestController::class);
+        $r->addRoute('POST', '/import-users', Controllers\ImportUsersPostTestController::class);
     }
 );
 

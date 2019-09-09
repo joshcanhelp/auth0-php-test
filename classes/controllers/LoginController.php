@@ -17,6 +17,6 @@ class LoginController extends GenericController
      */
     public function handle()
     {
-        $this->auth0->login();
+        $this->auth0->login(null, null, [ 'nonce' => uniqid() ]);
     }
 }

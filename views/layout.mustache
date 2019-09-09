@@ -9,7 +9,7 @@
 </head>
 <body>
 <article>
-    <h1>Auth0 Test Suite</h1>
+    <h3>Auth0 Test Suite</h3>
     <p>
         <strong>PHP:</strong> {{php_ver}}<br>
         <strong>Auth0 Domain:</strong> {{a0_domain}}<br>
@@ -26,6 +26,7 @@
         {{/ logged_in }}
         {{^ logged_in }}
             <a href="{{ base_url }}/login" class="btn btn-primary btn-sm">Login</a>
+            <a href="{{ base_url }}/login?show-code" class="btn btn-primary btn-sm">Get Code</a>
         {{/ logged_in }}
     </p>
     <hr>
