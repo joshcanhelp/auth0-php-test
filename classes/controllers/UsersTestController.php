@@ -64,7 +64,7 @@ class UsersTestController extends GenericController
 
             // Get an APIs
             $content .= '<h3>Get APIs</h3>';
-            $api_results = $this->callManagementApi()->resource_servers->getAll( 2, 1 );
+            $api_results = $this->callManagementApi()->resourceServers->getAll( 2, 1 );
             $content .= '<pre>' . print_r( $api_results, TRUE ) . '</pre>';
 
             $api_id = $api_results[0]['identifier'];

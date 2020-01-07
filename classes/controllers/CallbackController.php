@@ -7,7 +7,7 @@ namespace Auth0\SDK\Scaffold\Controllers;
  *
  * @package Auth0\SDK\Scaffold\Controllers
  */
-class AuthCallbackController extends GenericController
+class CallbackController extends GenericController
 {
     /**
      * Handle the authentication callback.
@@ -25,5 +25,6 @@ class AuthCallbackController extends GenericController
         }
 
         header( 'Location: '.$redirect );
+        exit;
     }
 }

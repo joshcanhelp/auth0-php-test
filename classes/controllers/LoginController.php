@@ -17,6 +17,13 @@ class LoginController extends GenericController
      */
     public function handle()
     {
-        $this->auth0->login(null, null, [ 'nonce' => uniqid() ]);
+        $loginOpts = [
+//            'redirect_uri' => BASE_URL . '/callback-idp-sso',
+        ];
+        $this->auth0->login(null, null, $loginOpts);
+
+//        $auth_url = $this->auth0->getLoginUrl();
+//        header('Location: ' . $auth_url);
+//        exit;
     }
 }

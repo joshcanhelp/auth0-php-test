@@ -4,3 +4,4 @@ auth0/
 favicon.ico
 dump.rdb
 uploads/*.json
+cache

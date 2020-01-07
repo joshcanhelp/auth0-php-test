@@ -3,11 +3,11 @@
 namespace Auth0\SDK\Scaffold\Controllers;
 
 /**
- * Class ShowCodeController
+ * Class CallbackShowCodeController
  *
  * @package Auth0\SDK\Scaffold\Controllers
  */
-class ShowCodeController extends GenericController
+class CallbackShowCodeController extends GenericController
 {
     /**
      * Handle M-API logs output.

@@ -15,9 +15,11 @@ require __DIR__.'/functions.php';
 use Auth0\SDK\Auth0;
 use Auth0\SDK\API\Authentication;
 use Auth0\SDK\Scaffold\Controllers;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
+use Cache\Adapter\Filesystem\FilesystemCachePool;
 
 use josegonzalez\Dotenv\Loader;
-use Firebase\JWT\JWT;
 
 $Dotenv = new Loader(__DIR__.'/.env');
 $Dotenv->parse()->putenv(true);
@@ -30,16 +32,18 @@ define('AUTH0_CLIENT_ID', getenv('AUTH0_CLIENT_ID'));
 define('AUTH0_CLIENT_SECRET', getenv('AUTH0_CLIENT_SECRET'));
 define('AUTH0_CALLBACK_PATH', '/auth/callback');
 
-JWT::$leeway = 60;
+$filesystemAdapter = new Local(__DIR__.'/');
+$filesystem        = new Filesystem($filesystemAdapter);
+
+$pool = new FilesystemCachePool($filesystem);
 
 $auth0 = new Auth0( [
-    'domain'               => AUTH0_DOMAIN,
-    'client_id'            => AUTH0_CLIENT_ID,
-    'client_secret'        => AUTH0_CLIENT_SECRET,
-    'redirect_uri'         => BASE_URL . ( isset( $_GET['show-code'] ) ? '/show-code' : AUTH0_CALLBACK_PATH ),
-    'scope'                => 'openid email profile',
-    'persist_id_token'     => true,
-    'persist_access_token' => true,
+    'domain'                      => AUTH0_DOMAIN,
+    'client_id'                   => AUTH0_CLIENT_ID,
+    'client_secret'               => AUTH0_CLIENT_SECRET,
+    'redirect_uri'                => BASE_URL . AUTH0_CALLBACK_PATH,
+    'legacy_samesite_none_cookie' => true,
+    'cache_handler'               => $pool,
 ] );
 
 // Routes.
@@ -47,12 +51,20 @@ $dispatcher = FastRoute\simpleDispatcher(
     function (FastRoute\RouteCollector $r) {
         $r->addRoute('GET', '/', Controllers\RootController::class);
 
+        // Login/out routes
         $r->addRoute('GET', '/login', Controllers\LoginController::class);
         $r->addRoute('GET', '/logout', Controllers\LogoutController::class);
-        $r->addRoute(['GET', 'POST'], AUTH0_CALLBACK_PATH, Controllers\AuthCallbackController::class);
-        $r->addRoute('GET', '/show-code', Controllers\ShowCodeController::class);
+
+        // Callbacks
+        $r->addRoute(['GET', 'POST'], AUTH0_CALLBACK_PATH, Controllers\CallbackController::class);
+        $r->addRoute('GET', '/callback-show-code', Controllers\CallbackShowCodeController::class);
+        $r->addRoute('GET', '/callback-show-data', Controllers\CallbackShowDataController::class);
+        $r->addRoute('GET', '/callback-idp-sso', Controllers\CallbackIdpSsoController::class);
+
+        // User
         $r->addRoute('GET', '/profile', Controllers\ProfileController::class);
 
+        // M-API testing
         $r->addRoute('GET', '/logs', Controllers\GetLogsController::class);
         $r->addRoute('GET', '/users', Controllers\GetUsersController::class);
         $r->addRoute('GET', '/grants', Controllers\GetGrantsController::class);
