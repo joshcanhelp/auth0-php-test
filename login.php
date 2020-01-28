@@ -9,7 +9,7 @@ use Auth0\SDK\Exception\ApiException;
 
 // Handle errors sent back by Auth0.
 if (! empty($_GET['error']) || ! empty($_GET['error_description'])) {
-    printf( '<h1>Error</h1><p>%s</p>', htmlspecialchars( $_GET['error_description'] ) );
+    printf('<h1>Error</h1><p>%s</p>', htmlspecialchars($_GET['error_description']));
     die();
 }
 
@@ -36,10 +36,10 @@ try {
     $userinfo = $auth0->getUser();
 } catch (CoreException $e) {
     // Invalid state or session already exists.
-    die( $e->getMessage() );
+    die($e->getMessage());
 } catch (ApiException $e) {
     // Access token not present.
-    die( $e->getMessage() );
+    die($e->getMessage());
 }
 
 // No user information so redirect to the Universal Login Page.

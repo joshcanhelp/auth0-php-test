@@ -20,7 +20,7 @@ class GetLogsController extends GenericController
             'page' => 0,
             'per_page' => 100,
             'sort' => 'date:-1',
-            'q' => implode( ' ', [
+            'q' => implode(' ', [
                 // This client
                 '-client_id:' . getenv('AUTH0_CLIENT_ID'),
 
@@ -30,15 +30,15 @@ class GetLogsController extends GenericController
                 // Unit testing clients
                 '-client_id:' . getenv('TEST_WEBAPP_CLIENT_ID'),
                 '-client_id:' . getenv('TEST_M2M_CLIENT_ID'),
-            ] ),
+            ]),
         ];
 
-        if (! empty( $_GET['type'] )) {
+        if (! empty($_GET['type'])) {
             $params['q'] .= ' type:'.$_GET['type'];
         }
 
         try {
-            $results = $this->callManagementApi()->logs->search($params);
+            $results = $this->callManagementApi()->logs()->search($params);
         } catch (\Exception $e) {
             $this->renderError($e);
             return;
@@ -46,8 +46,8 @@ class GetLogsController extends GenericController
 
         foreach ($results as $index => $result) {
             $results[$index]['auth0_client'] = 'none';
-            if (isset( $result['auth0_client'] )) {
-                $results[$index]['auth0_client'] = json_encode( $result['auth0_client'] );
+            if (isset($result['auth0_client'])) {
+                $results[$index]['auth0_client'] = json_encode($result['auth0_client']);
             }
 
             $date_split = explode('T', $result['date']);

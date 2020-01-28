@@ -6,6 +6,7 @@
  *
  * @return mixed|null
  */
-function array_value( array $arr, $key ) {
-    return isset( $arr[$key] ) ? $arr[$key] : null;
+function array_value(array $arr, $key)
+{
+    return isset($arr[$key]) ? $arr[$key] : null;
 }

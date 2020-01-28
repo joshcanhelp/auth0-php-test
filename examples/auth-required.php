@@ -3,14 +3,16 @@ require '../bootstrap.php';
 
 // ======================================================================================================================
 use Auth0\SDK\API\Authentication;
+use Auth0\SDK\Auth0;
+use Auth0\SDK\Helpers\TransientStoreHandler;
+use Auth0\SDK\Store\CookieStore;
 use Auth0\SDK\Store\SessionStore;
-use Auth0\SDK\API\Helpers\State\SessionStateHandler;
 
 if (! isUserAuthenticated()) {
     // Generate and store a state value.
-    $session_store = new SessionStore();
-    $state_handler = new SessionStateHandler($session_store);
-    $state_value   = $state_handler->issue();
+    $transient_store = new CookieStore();
+    $state_handler = new TransientStoreHandler($transient_store);
+    $state_value = $state_handler->issue(Auth0::TRANSIENT_STATE_KEY);
 
     $auth0_api = new Authentication(
         getenv('AUTH0_DOMAIN'),
@@ -19,7 +21,7 @@ if (! isUserAuthenticated()) {
 
     // Generate the authorize URL.
     $authorize_url = $auth0_api->get_authorize_link(
-        // Response expected by the application.
+        // Response requested by the application.
         'code',
         // Callback URL to respond to.
         getenv('AUTH0_REDIRECT_URI'),
@@ -28,10 +30,10 @@ if (! isUserAuthenticated()) {
         // State value to send with the request.
         $state_value,
         [
-            // Respond with the code and state in a POST body.
-            'response_mode' => 'form_post',
-            // Userinfo to allow.
-            'scope' => 'openid email profile',
+            // Optional API Audience to get an access token.
+            'audience' => 'https://' . getenv('AUTH0_DOMAIN') . '/api/v2/',
+            // Adjust ID token scopes requested.
+            'scope' => 'openid email address',
         ]
     );
 
@@ -50,5 +52,5 @@ function isUserAuthenticated()
 {
     $store    = new SessionStore();
     $userinfo = $store->get('user');
-    return ! empty( $userinfo );
+    return ! empty($userinfo);
 }

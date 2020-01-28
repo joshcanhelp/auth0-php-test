@@ -27,11 +27,11 @@ $auth0_api = new Authentication(
 
 try {
     $jwtVerifier = new JWTVerifier(
-    [
+        [
         'valid_audiences' => [ getenv('AUTH0_CLIENT_ID') ],
         'supported_algs'  => [ 'RS256' ],
         'authorized_iss'  => [ 'https://'.getenv('AUTH0_DOMAIN').'/' ],
-    ]
+        ]
     );
     $userinfo    = $jwtVerifier->verifyAndDecode($_POST['id_token']);
 } catch (Exception $e) {

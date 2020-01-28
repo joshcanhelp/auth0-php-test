@@ -24,7 +24,7 @@ class CallbackController extends GenericController
             $redirect .= '/profile';
         }
 
-        header( 'Location: '.$redirect );
+        header('Location: '.$redirect);
         exit;
     }
 }

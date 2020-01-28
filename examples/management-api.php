@@ -14,7 +14,7 @@ if ('test' === getenv('APPLICATION_ENVIRONMENT')) {
     $access_token = getManagementAccessToken();
 }
 
-$mgmt_api = new Management( $access_token, getenv('AUTH0_DOMAIN') );
+$mgmt_api = new Management($access_token, getenv('AUTH0_DOMAIN'));
 
 // ======================================================================================================================
 $results = $mgmt_api->users->search([

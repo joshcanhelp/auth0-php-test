@@ -113,7 +113,7 @@ abstract class GenericController
      */
     protected function render($name, array $tpl_vars = [])
     {
-        if ( ! empty( $tpl_vars ) ) {
+        if (! empty($tpl_vars)) {
             $this->tpl_vars['page'] = $tpl_vars;
         }
 
@@ -143,22 +143,22 @@ abstract class GenericController
      */
     protected function callManagementApi()
     {
-        if ( $this->management instanceof Management ) {
+        if ($this->management instanceof Management) {
             return $this->management;
         }
 
         $api_token = getenv('AUTH0_MANAGEMENT_API_TOKEN') ?: $this->redis->get('auth0_api_token');
 
-        if ( ! $api_token ) {
+        if (! $api_token) {
             try {
-                $response = $this->authentication->client_credentials( [
+                $response = $this->authentication->client_credentials([
                     'audience' => 'https://' . AUTH0_DOMAIN . '/api/v2/'
-                ] );
+                ]);
                 $api_token = $response[ 'access_token' ];
                 $this->redis->set('auth0_api_token', $api_token);
                 $this->redis->expire('auth0_api_token', $response[ 'expires_in' ]);
-            } catch ( \Exception $e ) {
-                die( $e->getMessage() );
+            } catch (\Exception $e) {
+                die($e->getMessage());
             }
         }
 

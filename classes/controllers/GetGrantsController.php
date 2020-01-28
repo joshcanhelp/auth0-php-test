@@ -18,16 +18,16 @@ class GetGrantsController extends GenericController
     public function handle()
     {
         try {
-            $results = $this->callManagementApi()->grants->getAll();
+            $results = $this->callManagementApi()->grants()->getAll();
         } catch (\Exception $e) {
             $this->renderError($e);
             return;
         }
 
         foreach ($results as $index => $result) {
-            $results[$index]['scope'] = implode( ' ', $result['scope'] );
+            $results[$index]['scope'] = implode(' ', $result['scope']);
 
-            $user_id = explode( '|', $result['user_id'] );
+            $user_id = explode('|', $result['user_id']);
             $results[$index]['user_strategy'] = $user_id[0];
             $results[$index]['user_id'] = $user_id[1];
         }

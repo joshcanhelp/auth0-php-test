@@ -37,14 +37,14 @@ $filesystem        = new Filesystem($filesystemAdapter);
 
 $pool = new FilesystemCachePool($filesystem);
 
-$auth0 = new Auth0( [
+$auth0 = new Auth0([
     'domain'                      => AUTH0_DOMAIN,
     'client_id'                   => AUTH0_CLIENT_ID,
     'client_secret'               => AUTH0_CLIENT_SECRET,
     'redirect_uri'                => BASE_URL . AUTH0_CALLBACK_PATH,
     'legacy_samesite_none_cookie' => true,
     'cache_handler'               => $pool,
-] );
+]);
 
 // Routes.
 $dispatcher = FastRoute\simpleDispatcher(
@@ -70,7 +70,6 @@ $dispatcher = FastRoute\simpleDispatcher(
         $r->addRoute('GET', '/grants', Controllers\GetGrantsController::class);
         $r->addRoute('GET', '/roles-test', Controllers\RolesTestController::class);
         $r->addRoute('GET', '/users-test', Controllers\UsersTestController::class);
-        $r->addRoute('GET', '/generate-token', Controllers\GenerateTokenController::class);
         $r->addRoute('GET', '/import-users', Controllers\ImportUsersGetTestController::class);
         $r->addRoute('POST', '/import-users', Controllers\ImportUsersPostTestController::class);
     }
@@ -90,7 +89,7 @@ switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::FOUND:
         Predis\Autoloader::register();
         $client = new Predis\Client();
-        $auth_api = new Authentication( AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET );
+        $auth_api = new Authentication(AUTH0_DOMAIN, AUTH0_CLIENT_ID, AUTH0_CLIENT_SECRET);
         $handler = new $routeInfo[1]($auth0, $auth_api, $client, $routeInfo[2]);
         $handler->handle();
         break;

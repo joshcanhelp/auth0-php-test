@@ -3,45 +3,41 @@ require '../bootstrap.php';
 
 // ======================================================================================================================
 // decode-jwt.php
-use Auth0\SDK\JWTVerifier;
-use Auth0\SDK\Exception\InvalidTokenException;
-use Auth0\SDK\Exception\CoreException;
+use Auth0\SDK\Helpers\JWKFetcher;
+use Auth0\SDK\Helpers\Tokens\AsymmetricVerifier;
+use Auth0\SDK\Helpers\Tokens\SymmetricVerifier;
+use Auth0\SDK\Helpers\Tokens\IdTokenVerifier;
 
 if (empty($_GET['id_token'])) {
-    die( 'No `id_token` URL parameter' );
+    die('No `id_token` URL parameter');
 }
 
 if (empty($_GET['token_alg']) || ! in_array($_GET['token_alg'], [ 'HS256', 'RS256' ])) {
-    die( 'Missing or invalid `token_alg` URL parameter' );
+    die('Missing or invalid `token_alg` URL parameter');
 }
 
-$idToken  = rawurldecode($_GET['id_token']);
-$tokenAlg = rawurldecode($_GET['token_alg']);
+$id_token  = rawurldecode($_GET['id_token']);
 
-$config = [
-    // Array of allowed algorithms; never pass more than what is expected.
-    'supported_algs' => [ $tokenAlg ],
-    // Array of allowed "aud" values.
-    'valid_audiences' => [ getenv('AUTH0_CLIENT_ID') ],
-];
+$token_issuer  = 'https://'.getenv('AUTH0_DOMAIN').'/';
+$signature_verifier = null;
 
-if ('HS256' === $tokenAlg) {
-    // HS256 tokens require the Client Secret to decode.
-    $config['client_secret']         = getenv('AUTH0_CLIENT_SECRET');
-    $config['secret_base64_encoded'] = false;
-} else {
-    // RS256 tokens require a valid issuer.
-    $config['authorized_iss'] = [ 'https://'.getenv('AUTH0_DOMAIN').'/' ];
+if ('RS256' === $_GET['token_alg']) {
+    $jwks_fetcher = new JWKFetcher();
+    $jwks        = $jwks_fetcher->getKeys($token_issuer.'.well-known/jwks.json');
+    $signature_verifier = new AsymmetricVerifier($jwks);
+} elseif ('HS256' === $_GET['token_alg']) {
+    $signature_verifier = new SymmetricVerifier(getenv('AUTH0_CLIENT_SECRET'));
 }
+
+$token_verifier = new IdTokenVerifier(
+    $token_issuer,
+    getenv('AUTH0_CLIENT_ID'),
+    $signature_verifier
+);
 
 try {
-    $verifier      = new JWTVerifier($config);
-    $decoded_token = $verifier->verifyAndDecode($idToken);
+    $decoded_token = $token_verifier->verify($id_token);
     echo '<pre>'.print_r($decoded_token, true).'</pre>';
-} catch (InvalidTokenException $e) {
-    echo 'Caught: InvalidTokenException - '.$e->getMessage();
-} catch (CoreException $e) {
-    echo 'Caught: CoreException - '.$e->getMessage();
 } catch (\Exception $e) {
     echo 'Caught: Exception - '.$e->getMessage();
 }

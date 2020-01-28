@@ -17,7 +17,7 @@ class CallbackIdpSsoController extends GenericController
     public function handle()
     {
 
-        if ( $_GET['idp_initiated_sso'] ?? false ) {
+        if ($_GET['idp_initiated_sso'] ?? false) {
             $_COOKIE['auth0__state'] = 'bypass';
             $_COOKIE['auth0__nonce'] = 'bypass';
             $_GET['state'] = 'bypass';
@@ -27,7 +27,7 @@ class CallbackIdpSsoController extends GenericController
                 'idp_initiated_sso' => 1,
             ];
             $redirectUrl = BASE_URL . '/callback-idp-sso?'.http_build_query($queryParams);
-            header( 'Location: '.$redirectUrl );
+            header('Location: '.$redirectUrl);
             exit;
         }
 
@@ -37,9 +37,9 @@ class CallbackIdpSsoController extends GenericController
             'title' => 'IdP Initiated SSO',
             'content' =>
                 '<pre>' . $this->auth0->getIdToken() . '</pre>' .
-                '<pre>' . print_r( $_COOKIE, TRUE ) . '</pre>' .
-                '<pre>' . print_r( $_REQUEST, TRUE ) . '</pre>' .
-                '<pre>' . print_r( $_SERVER, TRUE ) . '</pre>'
+                '<pre>' . print_r($_COOKIE, true) . '</pre>' .
+                '<pre>' . print_r($_REQUEST, true) . '</pre>' .
+                '<pre>' . print_r($_SERVER, true) . '</pre>'
         ];
 
         $this->render('page');
