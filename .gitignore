@@ -1,6 +1,6 @@
 .env
 vendor
-auth0/
+auth0-php
 favicon.ico
 dump.rdb
 uploads/*.json

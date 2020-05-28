@@ -18,7 +18,7 @@
   "autoload": {
     "psr-4": {
       "Auth0\\SDK\\Scaffold\\": "classes",
-      "Auth0\\SDK\\": "auth0/src"
+      "Auth0\\SDK\\": "auth0-php/src"
     }
   },
   "license": "MIT",

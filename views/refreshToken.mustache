@@ -1,0 +1,23 @@
+{{< layout }}
+
+{{$ title }}{{ profile.title }}{{/ title }}
+
+{{$ content }}
+<h2>Old Tokens</h2>
+<h3>Access Token</h3>
+<pre>{{ tokens.oldAccessToken }}</pre>
+<h3>ID Token</h3>
+<pre>{{ tokens.oldIdToken }}</pre>
+
+<h2>Refresh Token</h2>
+<pre>{{ tokens.refreshToken }}</pre>
+
+<h2>New Tokens</h2>
+<h3>Access Token</h3>
+<pre>{{ tokens.newAccessToken }}</pre>
+<h3>ID Token</h3>
+<pre>{{ tokens.newIdToken }}</pre>
+<hr>
+{{/ content }}
+
+{{/ layout }}

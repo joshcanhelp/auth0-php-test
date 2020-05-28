@@ -162,7 +162,7 @@ abstract class GenericController
             }
         }
 
-        $this->management = new Management($api_token, AUTH0_DOMAIN);
+        $this->management = new Management($api_token, AUTH0_DOMAIN, ['verify' => false]);
         return $this->management;
     }
 

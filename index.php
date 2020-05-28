@@ -4,7 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Composer autoloader for Auth0.
-require __DIR__.'/auth0/vendor/autoload.php';
+require __DIR__.'/auth0-php/vendor/autoload.php';
 
 // Composer autoloader for project.
 require __DIR__.'/vendor/autoload.php';
@@ -24,6 +24,14 @@ use josegonzalez\Dotenv\Loader;
 $Dotenv = new Loader(__DIR__.'/.env');
 $Dotenv->parse()->putenv(true);
 
+if ($_GET['error'] ?? null) {
+    printf(
+        '%s <a href="/">Home</a>',
+        $_GET['error_description']
+    );
+    exit;
+}
+
 define('DOC_ROOT', __DIR__.'/');
 define('BASE_URL', 'http://'.$_SERVER['HTTP_HOST']);
 define('AUTH0_TENANT', getenv('AUTH0_TENANT'));
@@ -38,11 +46,15 @@ $filesystem        = new Filesystem($filesystemAdapter);
 $pool = new FilesystemCachePool($filesystem);
 
 $auth0 = new Auth0([
+    'scope'                       => 'openid email profile offline_access',
     'domain'                      => AUTH0_DOMAIN,
     'client_id'                   => AUTH0_CLIENT_ID,
     'client_secret'               => AUTH0_CLIENT_SECRET,
     'redirect_uri'                => BASE_URL . AUTH0_CALLBACK_PATH,
     'legacy_samesite_none_cookie' => true,
+    'persist_access_token'        => true,
+    'persist_id_token'            => true,
+    'persist_refresh_token'       => true,
     'cache_handler'               => $pool,
 ]);
 
@@ -63,6 +75,7 @@ $dispatcher = FastRoute\simpleDispatcher(
 
         // User
         $r->addRoute('GET', '/profile', Controllers\ProfileController::class);
+        $r->addRoute('GET', '/refresh-token', Controllers\RefreshTokenController::class);
 
         // M-API testing
         $r->addRoute('GET', '/logs', Controllers\GetLogsController::class);

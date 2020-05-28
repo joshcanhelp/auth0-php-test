@@ -40,8 +40,8 @@ class ImportUsersPostTestController extends GenericController
         move_uploaded_file($tmp_name, $file_path);
 
         $params = [
-            'upsert' => $_POST['upsert'],
-            'send_completion_email' => $_POST['send_completion_email'],
+            'upsert' => $_POST['upsert'] ?? false,
+            'send_completion_email' => $_POST['send_completion_email'] ?? false,
             'external_id' => $_POST['external_id'] ?? null,
         ];
 
@@ -58,7 +58,7 @@ class ImportUsersPostTestController extends GenericController
     private function doRender($content)
     {
         $this->tpl_vars['page'] = [
-            'title' => 'Import Users',
+            'title' => 'Import Users!',
             'content' => $content,
         ];
 

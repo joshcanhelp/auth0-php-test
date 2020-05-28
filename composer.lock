@@ -444,16 +444,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.57",
+            "version": "1.0.67",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "0e9db7f0b96b9f12dcf6f65bc34b72b1a30ea55a"
+                "reference": "5b1f36c75c4bdde981294c2a0ebdb437ee6f275e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/0e9db7f0b96b9f12dcf6f65bc34b72b1a30ea55a",
-                "reference": "0e9db7f0b96b9f12dcf6f65bc34b72b1a30ea55a",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/5b1f36c75c4bdde981294c2a0ebdb437ee6f275e",
+                "reference": "5b1f36c75c4bdde981294c2a0ebdb437ee6f275e",
                 "shasum": ""
             },
             "require": {
@@ -465,7 +465,7 @@
             },
             "require-dev": {
                 "phpspec/phpspec": "^3.4",
-                "phpunit/phpunit": "^5.7.10"
+                "phpunit/phpunit": "^5.7.26"
             },
             "suggest": {
                 "ext-fileinfo": "Required for MimeType",
@@ -524,20 +524,20 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-10-16T21:01:05+00:00"
+            "time": "2020-04-16T13:21:26+00:00"
         },
         {
             "name": "m1/env",
-            "version": "2.1.2",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/m1/Env.git",
-                "reference": "294addeedf15e1149eeb96ec829f2029d2017d39"
+                "reference": "5c296e3e13450a207e12b343f3af1d7ab569f6f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/m1/Env/zipball/294addeedf15e1149eeb96ec829f2029d2017d39",
-                "reference": "294addeedf15e1149eeb96ec829f2029d2017d39",
+                "url": "https://api.github.com/repos/m1/Env/zipball/5c296e3e13450a207e12b343f3af1d7ab569f6f3",
+                "reference": "5c296e3e13450a207e12b343f3af1d7ab569f6f3",
                 "shasum": ""
             },
             "require": {
@@ -582,20 +582,20 @@
                 "parser",
                 "support"
             ],
-            "time": "2018-06-19T18:55:08+00:00"
+            "time": "2020-02-19T09:02:13+00:00"
         },
         {
             "name": "mustache/mustache",
-            "version": "v2.12.0",
+            "version": "v2.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/mustache.php.git",
-                "reference": "fe8fe72e9d580591854de404cc59a1b83ca4d19e"
+                "reference": "e95c5a008c23d3151d59ea72484d4f72049ab7f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/fe8fe72e9d580591854de404cc59a1b83ca4d19e",
-                "reference": "fe8fe72e9d580591854de404cc59a1b83ca4d19e",
+                "url": "https://api.github.com/repos/bobthecow/mustache.php/zipball/e95c5a008c23d3151d59ea72484d4f72049ab7f4",
+                "reference": "e95c5a008c23d3151d59ea72484d4f72049ab7f4",
                 "shasum": ""
             },
             "require": {
@@ -628,7 +628,7 @@
                 "mustache",
                 "templating"
             ],
-            "time": "2017-07-11T12:54:05+00:00"
+            "time": "2019-11-23T21:40:31+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -774,16 +774,16 @@
         },
         {
             "name": "psr/log",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "446d54b4cb6bf489fc9d75f55843658e6f25d801"
+                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/446d54b4cb6bf489fc9d75f55843658e6f25d801",
-                "reference": "446d54b4cb6bf489fc9d75f55843658e6f25d801",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/0f73288fd15629204f9d42b7055f72dacbe811fc",
+                "reference": "0f73288fd15629204f9d42b7055f72dacbe811fc",
                 "shasum": ""
             },
             "require": {
@@ -817,7 +817,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2019-11-01T11:05:21+00:00"
+            "time": "2020-03-23T09:12:05+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -869,16 +869,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.5.0",
+            "version": "3.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "0afebf16a2e7f1e434920fa976253576151effe9"
+                "reference": "dceec07328401de6211037abbb18bda423677e26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/0afebf16a2e7f1e434920fa976253576151effe9",
-                "reference": "0afebf16a2e7f1e434920fa976253576151effe9",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/dceec07328401de6211037abbb18bda423677e26",
+                "reference": "dceec07328401de6211037abbb18bda423677e26",
                 "shasum": ""
             },
             "require": {
@@ -916,7 +916,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-09-26T23:12:26+00:00"
+            "time": "2020-01-30T22:20:29+00:00"
         }
     ],
     "packages-dev": [],
